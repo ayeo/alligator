@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\MaxLength;
+use Ayeo\Validator2\Constraint\MaxLength;
 use PHPUnit_Framework_TestCase;
 
 class MaxLengthTest extends PHPUnit_Framework_TestCase

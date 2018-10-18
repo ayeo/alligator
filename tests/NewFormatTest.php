@@ -1,16 +1,16 @@
 <?php
 
-namespace Ayeo\Validator\Tests;
+namespace Ayeo\Validator2\Tests;
 
-use Ayeo\Validator\Constraint\MinLength;
-use Ayeo\Validator\Constraint\NotNull;
-use Ayeo\Validator\Constraint\OneOf;
-use Ayeo\Validator\Error;
-use Ayeo\Validator\Rule;
-use Ayeo\Validator\Tests\Mock\Nested;
-use Ayeo\Validator\Tests\Mock\SampleClass;
-use Ayeo\Validator\Validator;
-use Ayeo\Validator\Conditional;
+use Ayeo\Validator2\Constraint\MinLength;
+use Ayeo\Validator2\Constraint\NotNull;
+use Ayeo\Validator2\Constraint\OneOf;
+use Ayeo\Validator2\Error;
+use Ayeo\Validator2\Rule;
+use Ayeo\Validator2\Tests\Mock\Nested;
+use Ayeo\Validator2\Tests\Mock\SampleClass;
+use Ayeo\Validator2\Validator;
+use Ayeo\Validator2\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class NewFormatTest extends TestCase

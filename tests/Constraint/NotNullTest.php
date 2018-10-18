@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\NotNull;
+use Ayeo\Validator2\Constraint\NotNull;
 use PHPUnit_Framework_TestCase;
 
 class NotNullTest extends PHPUnit_Framework_TestCase

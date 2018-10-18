@@ -1,9 +1,9 @@
 {
-  "name": "ayeo/validator",
+  "name": "ayeo/validator2",
   "description": "Universal and independent validator",
   "keywords": ["validator"],
   "type": "library",
-  "homepage": "https://github.com/ayeo/validator",
+  "homepage": "https://github.com/ayeo/validator2",
   "license": "MIT",
   "authors": [
     {
@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Ayeo\\Validator\\": "src//"
+      "Ayeo\\Validator2\\": "src//"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ayeo\\Validator\\Tests\\": "tests//"
+      "Ayeo\\Validator2\\Tests\\": "tests//"
     }
   }
 }

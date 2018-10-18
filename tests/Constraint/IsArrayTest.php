@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\IsArray;
+use Ayeo\Validator2\Constraint\IsArray;
 
 class IsArrayTest extends \PHPUnit_Framework_TestCase
 {

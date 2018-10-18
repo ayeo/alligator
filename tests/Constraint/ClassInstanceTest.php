@@ -1,9 +1,9 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
 use PHPUnit_Framework_TestCase;
-use Ayeo\Validator\Tests\Mock\SampleClass;
-use Ayeo\Validator\Constraint\ClassInstance;
+use Ayeo\Validator2\Tests\Mock\SampleClass;
+use Ayeo\Validator2\Constraint\ClassInstance;
 
 class ClassInstanceTest extends PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class ClassInstanceTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Ayeo\Validator\Exception\InvalidConstraintParameter
+     * @expectedException \Ayeo\Validator2\Exception\InvalidConstraintParameter
      */
     public function testNonStringParameter()
     {

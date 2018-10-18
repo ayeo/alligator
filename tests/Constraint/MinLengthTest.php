@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\MinLength;
+use Ayeo\Validator2\Constraint\MinLength;
 use PHPUnit_Framework_TestCase;
 
 class MinLengthTest extends PHPUnit_Framework_TestCase

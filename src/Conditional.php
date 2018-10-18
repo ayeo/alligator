@@ -1,6 +1,6 @@
 <?php
 
-namespace Ayeo\Validator;
+namespace Ayeo\Validator2;
 
 class Conditional
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator\Constraint;
+namespace Ayeo\Validator2\Constraint;
 
 class Integer extends AbstractConstraint
 {

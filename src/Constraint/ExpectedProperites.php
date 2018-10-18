@@ -1,6 +1,6 @@
 <?php
 
-namespace Ayeo\Validator\Constraint;
+namespace Ayeo\Validator2\Constraint;
 
 class ExpectedProperites extends AbstractConstraint
 {

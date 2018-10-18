@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\InArray;
+use Ayeo\Validator2\Constraint\InArray;
 
 class InArrayTest extends \PHPUnit_Framework_TestCase
 {

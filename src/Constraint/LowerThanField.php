@@ -1,9 +1,9 @@
 <?php
-namespace Ayeo\Validator\Constraint;
+namespace Ayeo\Validator2\Constraint;
 
 use Libs\Form;
 
-class LowerThanField extends \Ayeo\Validator\Constraint\AbstractConstraint
+class LowerThanField extends \Ayeo\Validator2\Constraint\AbstractConstraint
 {
 	/**
 	 * @var string

@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator\Tests\Mock;
+namespace Ayeo\Validator2\Tests\Mock;
 
 class Nested
 {

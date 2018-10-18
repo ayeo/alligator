@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\NumericMin;
+use Ayeo\Validator2\Constraint\NumericMin;
 use PHPUnit_Framework_TestCase;
 
 class NumericMinTest extends PHPUnit_Framework_TestCase
@@ -21,7 +21,7 @@ class NumericMinTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Ayeo\Validator\Exception\InvalidConstraintParameter
+     * @expectedException \Ayeo\Validator2\Exception\InvalidConstraintParameter
      */
     public function testStringParameter()
     {

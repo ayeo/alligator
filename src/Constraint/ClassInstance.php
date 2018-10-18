@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Constraint;
+namespace Ayeo\Validator2\Constraint;
 
-use Ayeo\Validator\Exception\InvalidConstraintParameter;
+use Ayeo\Validator2\Exception\InvalidConstraintParameter;
 
 class ClassInstance extends AbstractConstraint
 {

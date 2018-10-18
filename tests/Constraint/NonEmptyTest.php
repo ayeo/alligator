@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator\Tests\Constraint;
+namespace Ayeo\Validator2\Tests\Constraint;
 
-use Ayeo\Validator\Constraint\NonEmpty;
+use Ayeo\Validator2\Constraint\NonEmpty;
 use PHPUnit_Framework_TestCase;
 
 class NonEmptyTest extends PHPUnit_Framework_TestCase
