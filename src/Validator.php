@@ -1,112 +1,135 @@
 <?php
 namespace Ayeo\Validator;
 
-use Ayeo\Validator\Constraint\AbstractConstraint;
-
 class Validator
 {
-    /**
-     * @var ValidationRules
-     */
     private $rules;
-
     private $errors = [];
-
     private $invalidFields = [];
 
-    /**
-     * @param ValidationRules $rules
-     */
-    public function __construct(ValidationRules $rules)
+    public function __construct(array $rules)
     {
         $this->rules = $rules;
     }
 
     public function validate($object)
     {
-        $this->invalidFields = []; //this fixes issue if validate twice invalid object, second try returns true
         $errors = [];
-        /* @var $validator AbstractValidator */
-        foreach ($this->rules->getRules() as $x => list($fieldName, $validator))
-        {
-            $defaultValue = $this->rules->getDefaultValue($x);
-            $this->processValidation($validator, $fieldName, $object, $errors, $defaultValue);
+        foreach ($this->rules as $fieldName => $rule) {
+            $this->processValidation($rule, $fieldName, $object, $errors);
         }
-
         $this->errors = $errors;
 
-        return count($errors) === 0;
+        return count($this->getErrors()) === 0;
     }
 
-    private function processValidation($validator, $fieldName, $object, &$errors, $defaultValue = null)
+    private function processValidation($rule, string $fieldName, $object, array &$errors = [])
     {
-        if (is_array($validator))
-        {
-            $nestedObject = $this->getFieldValue($fieldName, $object);
-            if (is_null($nestedObject))
-            {
-                $nestedObject = $defaultValue;
+        if (isset($errors[$fieldName]) === false) {
+            $errors[$fieldName] = [];
+        }
+
+        if (is_array($rule)) {
+            foreach ($rule as $xFieldName => $xRule) {
+                if (isset($errors[$fieldName]) === false) {
+                    $errors[$fieldName] = [];
+                }
+
+                if ($xRule instanceof Conditional) {
+                    $zbychu = $xRule;
+                    $nestedObject = (object)$this->getFieldValue($fieldName, $object);
+                    $a = $this->getFieldValue($zbychu->getFieldName(), $object);
+                    $b = $zbychu->getExpectedValue();
+                    if ($a == $b) {
+                        foreach ($zbychu->getRules() as $yy => $xxx) {
+                            if ($yy === '*') {
+                                foreach ($this->getObjectProperites($object) as $propertyName) {
+                                    $this->processValidation($xxx, $propertyName, $nestedObject, $errors[$fieldName]);
+                                }
+                            } else {
+                                $this->processValidation($xxx, $yy, $nestedObject, $errors[$fieldName]);
+                            }
+                        }
+                    }
+                } else {
+                    if (is_numeric($xFieldName)) {
+                        $xFieldName = $fieldName;
+                        $nestedObject = $object;
+                        $this->processValidation($xRule, $xFieldName, $nestedObject, $errors);
+                    } else {
+                        $nestedObject = $this->getFieldValue($fieldName, $object);
+                        $this->processValidation($xRule, $xFieldName, $nestedObject, $errors[$fieldName]);
+                    }
+                }
             }
 
-            $xValidator = $validator[1];
-            $xField = $validator[0];
-            $this->processValidation($xValidator, $xField, $nestedObject, $errors, $defaultValue);
-        }
-        else
-        {
-            if (in_array($fieldName, $this->invalidFields))
-            {
+            return;
+        } else {
+            $validator = $rule->getConstraint();
+            if (in_array($fieldName, $this->invalidFields)) {
                 return;
             }
 
-            $validator->setObject($object);
-            $validator->setFieldName($fieldName);
-            $validator->setDefaultValue($defaultValue);
-            $validator->validate();
+            $value = $this->getFieldValue($fieldName, $object);
+            $result = $validator->validate($value);
 
-            if ($validator->hasError()) {
+            if ($result === false) {
                 $this->invalidFields[] = $fieldName;
-                $errors[$fieldName] = $validator->getError();
+                $errors[$fieldName] = new Error($rule->getMessage(), $validator->getMetadata(), $rule->getCode());
+
             }
         }
+    }
+
+    private function getObjectProperites(): array
+    {
+        return ['min'];
     }
 
     private function getFieldValue($fieldName, $object)
     {
-        $reflection = new \ReflectionClass(get_class($object));
+        if ($object instanceof \stdClass) {
+            return $object->$fieldName;
+        }
 
-        try
-        {
+        $reflection = new \ReflectionClass(get_class($object));
+        try {
             $property = $reflection->getProperty($fieldName);
         }
-        catch (\Exception $e)
-        {
+        catch (\Exception $e) {
             $property = null;
         }
 
+        $value = null;
         $methodName = 'get'.ucfirst($fieldName);
 
-        if ($property && $property->isPublic())
-        {
+        if ($property && $property->isPublic()) {
             $value = $property->getValue($object);
         }
-        else if ($reflection->hasMethod($methodName))
-        {
+        elseif ($reflection->hasMethod($methodName)) {
             $value = call_user_func(array($object, $methodName));
-        }
-        else
-        {
-            throw new \Exception('Object has not property nor method: '. $fieldName);
         }
 
         return $value;
     }
 
-    public function getErrors($x = false)
+    public function getErrors(): array
     {
-        if ($x) {
-            return array_values($this->errors);
+        return $this->clearEmptyRecursively($this->errors);
+    }
+
+    private function clearEmptyRecursively(array $haystack): array
+    {
+        foreach ($haystack as $key => $value) {
+            if (is_array($value)) {
+                $haystack[$key] = $this->clearEmptyRecursively($haystack[$key]);
+            }
+
+            if (empty($haystack[$key])) {
+                unset($haystack[$key]);
+            }
         }
-        return $this->errors;
+
+        return $haystack;
     }
 }
