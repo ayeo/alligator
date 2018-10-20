@@ -89,7 +89,11 @@ class Validator
     private function getFieldValue($fieldName, $object)
     {
         if ($object instanceof \stdClass) {
-            return $object->$fieldName;
+            if (isset($object->$fieldName)) {
+                return $object->$fieldName;
+            } else {
+                return null;
+            }
         }
 
         $reflection = new \ReflectionClass(get_class($object));
