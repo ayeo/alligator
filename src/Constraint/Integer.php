@@ -3,14 +3,8 @@ namespace Ayeo\Validator2\Constraint;
 
 class Integer extends AbstractConstraint
 {
-    public function run($value)
+    public function run($value): bool
     {
-        if (is_null($this->getFieldValue())) {
-            return;
-        }
-
-        if (is_integer($value) === false) {
-            $this->addError('must_be_integer');
-        }
+        return is_integer($value);
     }
 }

@@ -43,8 +43,8 @@ class Validator
                     if ($a == $b) {
                         foreach ($zbychu->getRules() as $yy => $xxx) {
                             if ($yy === '*') {
-                                foreach ($this->getObjectProperites($object) as $propertyName) {
-                                    $this->processValidation($xxx, $propertyName, $nestedObject, $errors[$fieldName]);
+                                foreach (get_object_vars($nestedObject) as $propertyName => $value) {
+                                    $this->processObjectValidation($xxx, $propertyName, $nestedObject, $errors[$fieldName]);
                                 }
                             } else {
                                 $this->processValidation($xxx, $yy, $nestedObject, $errors[$fieldName]);
@@ -81,9 +81,14 @@ class Validator
         }
     }
 
-    private function getObjectProperites(): array
+    private function processObjectValidation($rule, $fieldName, $object, &$errors): void
     {
-        return ['min'];
+        $validator = $rule->getConstraint();
+        $result = $validator->validate($fieldName);
+
+        if ($result === false) {
+            $errors[$fieldName] = new Error($rule->getMessage(), $validator->getMetadata(), $rule->getCode());
+        }
     }
 
     private function getFieldValue($fieldName, $object)
