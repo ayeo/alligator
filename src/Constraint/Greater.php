@@ -18,6 +18,10 @@ class Greater extends AbstractConstraint implements WholeObjectAware
 
     public function validateRelated($value, $object): bool
     {
+        if (is_null($value)) {
+            return true;
+        }
+        
         $z = $this->fieldName;
         $this->min = $object->$z;
 

@@ -45,4 +45,17 @@ class RelatedTest extends TestCase
         $validator = new Validator($rules);
         $this->assertTrue($validator->validate($range));
     }
+
+    public function testWithUnsetMax()
+    {
+        $range = new Range();
+        $range->min = 10;
+
+        $rules = [
+            'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+        ];
+
+        $validator = new Validator($rules);
+        $this->assertTrue($validator->validate($range));
+    }
 }
