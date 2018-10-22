@@ -1,13 +1,15 @@
-# Validator
+# Validator2
 
-Independent library allows to simple validation other objects
+DO NOT USE IT YET: it is draft 
+
+Extremely simple yet powerful validator
 
 Install
 =======
 
 Using composer
 ```
-composer require ayeo/validator
+composer require ayeo/validator2
 ```
 
 Example objects
@@ -23,8 +25,7 @@ class Company
     /** @var string */ 
     public $name;
     
-    /** @var Address */
-    public function getAddress()
+    public function getAddress(): Address
     {
         return $this->address();
     }
@@ -46,65 +47,41 @@ class Address
 }
 ```
 
-Validation rules
-================
+## Basic usage
 
-To process validation we need to define our rules
+
+Validator is able to traversable through nested objects. In case of private/protected propeties object must provide respective getter. Validation rules are defined as array. One field may get more than one rule. 
 ```php
-use Ayeo\Validator\ValidationRules
-
-class CompanyValidationRules extends ValidationRules
-{
-    public function getRules()
-    {
-        return
-        [
-            ['company',
-                [
-                    ['name', new MinLength(5)],
-                    ['address',
-                        ['street', new MinLength(5)],
-                        ['town', new MinLength(5)],
-                        ['country', new OneOf(['USA', 'UK', 'Poland'])]
-                    ]
-                ] 
-        ];            
-    }
-}
+$rules = [
+    'name' => new Rule(new MinLength(5), 'Name must be at least 5 chars long'],
+    'address' => [
+        'street' => new Rule(new MinLength(5), 'Street name is to shrot'),
+        'town' => new Rule (new MinLength(5), 'Town name is to short),
+        'country' => new OneOf(['USA', 'UK', 'Poland']), 'Country is not allowed')
+    ]
+] 
 ```
-
-It is not too sophisticated but works just fine. As you can see we are able to validate nested objects. Validator is smart enough to get private and protected properties (if we got getter). Validator usage:
 
 ```php
 $company = new Company;
 $company->name = "Test Company";
 
-$validator = new Validator(new CompanyValidationRules);
-$isValid = $validator->validate($company);
+$validator = new Validator();
+$isValid = $validator->validate($company, $rules);
 $errors = $validator->getErrors();
 ```
 
-Default values
-==============
+## Allowed object properties checking
 
-Version 1.2 introduced default values support. In order to set default value you need to pass it as third argument. Default value will be used only if field value is null. Be aware that default value as still subject of further validation - if you set invalid default value it will result with error
-```php
-use Ayeo\Validator\ValidationRules
+todo: describe "*"
 
-class CompanyValidationRules extends ValidationRules
-{
-    public function getRules()
-    {
-        return [['company', [['name', new MinLength(5), "Unknown name"]]];            
-    }
-}
-```
+## Conditional rules
 
-Allow null
-==========
+todo: describe conditional rules
 
-By default given validator will skip checking in case of null value. Of course you need some of them to check even null value. If constraint class implements CheckNull interface validator will force check field even if it is null. At the moment only NotNull constraint it one of this kind.
+## Related
 
+todo: desribe validating field base on other field value 
 
 Availaible constraints
 ======================
@@ -120,6 +97,6 @@ Availaible constraints
 - NonEmpty
 - ClassInstance
 - NotClassInstance
-- LowerThanField
 
-Feel free to add some more!
+
+
