@@ -6,6 +6,7 @@ use Ayeo\Validator2\Constraint\Greater;
 use Ayeo\Validator2\Error;
 use Ayeo\Validator2\Rule;
 use Ayeo\Validator2\Tests\Mock\Range;
+use Ayeo\Validator2\Tests\Mock\SampleClass;
 use Ayeo\Validator2\Validator;
 use PHPUnit\Framework\TestCase;
 
@@ -57,5 +58,32 @@ class RelatedTest extends TestCase
 
         $validator = new Validator($rules);
         $this->assertTrue($validator->validate($range));
+    }
+
+    public function testNested()
+    {
+        $object = new SampleClass();
+        $range = new Range();
+        $range->min = 40;
+        $range->max = 10;
+        $object->nested = $range;
+
+        $rules = [
+            'nested' => [
+                'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+            ]
+        ];
+
+        $expected = [
+            'nested' => [
+                'max' => new Error('Max must be greater than min', [
+                    'min' => 40
+                ])
+            ]
+        ];
+        $validator = new Validator($rules);
+        $this->assertFalse($validator->validate($object));
+        $errors = $validator->getErrors();
+        $this->assertEquals($expected, $errors);
     }
 }
