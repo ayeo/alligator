@@ -4,30 +4,31 @@ namespace Ayeo\Validator2;
 class Error
 {
     //fixme: use toArray instead public props
-    /** @var string */
-    public $message;
     /** @var array */
     public $metadata;
-    /** @var null|string */
+    /** @var string */
     public $code;
 
-    public function __construct(string $message, array $metadata, ?string $code = '')
+    public $message;
+
+    public function __construct(string $code, array $metadata, ?string $message = null)
     {
-        $this->message = $message;
         $this->metadata = $metadata;
         $this->code = $code;
+        $this->message = $message;
     }
 
-    public function getMessage(): string
+    public function setMessage(string $message): void
     {
-        return $this->message;
+        $this->message = $message;
     }
+
     public function getMetadata(): array
     {
         return $this->metadata;
     }
 
-    public function getCode(): ?string
+    public function getCode(): string
     {
         return $this->code;
     }

@@ -3,19 +3,27 @@ namespace Ayeo\Validator2;
 
 class Validator
 {
-    private $rules;
     private $errors = [];
     private $invalidFields = [];
 
-    public function __construct(array $rules)
+    public function __construct(?string $version = null)
     {
-        $this->rules = $rules;
+        if (is_null($version)) {
+
+        } else {
+            $this->translator = new Translator(); //todo: depends on version
+        }
+
     }
 
-    public function validate($object)
+    public function validate($object, $rules)
     {
+        if (isset($this->translator)) {
+            $rules = $this->translator->translate($rules);
+        }
+
         $errors = [];
-        foreach ($this->rules as $fieldName => $rule) {
+        foreach ($rules as $fieldName => $rule) {
             $this->processValidation($rule, $fieldName, $object, $errors);
         }
         $this->errors = $errors;
@@ -79,7 +87,7 @@ class Validator
 
             if ($result === false) {
                 $this->invalidFields[] = $fieldName;
-                $errors[$fieldName] = new Error($rule->getMessage(), $validator->getMetadata(), $rule->getCode());
+                $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
 
             }
         }
@@ -91,7 +99,7 @@ class Validator
         $result = $validator->validate($fieldName);
 
         if ($result === false) {
-            $errors[$fieldName] = new Error($rule->getMessage(), $validator->getMetadata(), $rule->getCode());
+            $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
         }
     }
 
@@ -126,9 +134,32 @@ class Validator
         return $value;
     }
 
-    public function getErrors(): array
+    public function getErrors(?ErrorCodesTable $codesTable = null): array
     {
-        return $this->clearEmptyRecursively($this->errors);
+        $errors = $this->clearEmptyRecursively($this->errors);
+
+        if (isset($codesTable)) {
+            return $this->decorateErrors($errors, $codesTable);
+        } else {
+            return $errors;
+        }
+    }
+
+    private function decorateErrors(array $errors, ErrorCodesTable $table): array
+    {
+        foreach ($errors as $key => $error) {
+            if (is_array($error)) {
+                $this->decorateErrors($error, $table);
+            } else {
+                /* @var $error \Ayeo\Validator2\Error */
+                if ($table->has($error->getCode())) {
+                    $error->setMessage($table->getMessage($error->getCode()));
+                }
+            }
+
+        }
+
+        return $errors;
     }
 
     private function clearEmptyRecursively(array $haystack): array

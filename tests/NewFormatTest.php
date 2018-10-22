@@ -23,8 +23,8 @@ class NewFormatTest extends TestCase
         $object = new SampleClass();
         $object->name = 'Sample name';
 
-        $validator = new Validator($rules);
-        $validator->validate($object);
+        $validator = new Validator();
+        $validator->validate($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
