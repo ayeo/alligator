@@ -52,7 +52,7 @@ class Validator
                         }
                     }
                 } else {
-                    if (is_numeric($xFieldName)) {
+                    if (is_numeric($xFieldName)) { //multiple rules (?)
                         $xFieldName = $fieldName;
                         $nestedObject = $object;
                         $this->processValidation($xRule, $xFieldName, $nestedObject, $errors);
@@ -71,7 +71,11 @@ class Validator
             }
 
             $value = $this->getFieldValue($fieldName, $object);
-            $result = $validator->validate($value);
+            if ($validator instanceof WholeObjectAware) {
+                $result = $validator->validateRelated($value, $object);
+            } else {
+                $result = $validator->validate($value);
+            }
 
             if ($result === false) {
                 $this->invalidFields[] = $fieldName;
