@@ -2,9 +2,11 @@
 
 namespace Ayeo\Validator2;
 
+use Ayeo\Validator2\Constraint\ArrayOf;
 use Ayeo\Validator2\Constraint\ExpectedProperites;
 use Ayeo\Validator2\Constraint\Greater;
 use Ayeo\Validator2\Constraint\Integer;
+use Ayeo\Validator2\Constraint\MinItemsNumber;
 use Ayeo\Validator2\Constraint\MinLength;
 use Ayeo\Validator2\Constraint\NotAllowed;
 use Ayeo\Validator2\Constraint\NotNull;
@@ -21,7 +23,9 @@ class Translator
         'expected_properties' => ExpectedProperites::class,
         'greater' => Greater::class,
         'not_allowed' => NotAllowed::class,
-        'min_length' => MinLength::class
+        'min_length' => MinLength::class,
+        'array_of' => ArrayOf::class,
+        'min_items_number' => MinItemsNumber::class
     ];
 
     private function isValidSlug($slug): bool
