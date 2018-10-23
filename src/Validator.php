@@ -45,17 +45,33 @@ class Validator
 
                 if ($xRule instanceof Conditional) {
                     $zbychu = $xRule;
-                    $nestedObject = (object)$this->getFieldValue($fieldName, $object);
+                    $nestedObject = $this->getFieldValue($fieldName, $object);
                     $a = $this->getFieldValue($zbychu->getFieldName(), $object);
                     $b = $zbychu->getExpectedValue();
                     if ($a == $b) {
                         foreach ($zbychu->getRules() as $yy => $xxx) {
                             if ($yy === '*') {
-                                foreach (get_object_vars($nestedObject) as $propertyName => $value) {
-                                    $this->processObjectValidation($xxx, $propertyName, $nestedObject, $errors[$fieldName]);
+                                foreach (get_object_vars((object)$nestedObject) as $propertyName => $value) {
+                                    $this->processObjectValidation(
+                                        $xxx,
+                                        $propertyName,
+                                        (object)$nestedObject,
+                                        $errors[$fieldName]
+                                    );
                                 }
+                            } elseif ($yy === '') {
+                                if (is_null($nestedObject)) {
+                                    continue;
+                                }
+
+                                $this->processObjectValidation(
+                                    $xxx,
+                                    $fieldName,
+                                    (object)$nestedObject,
+                                    $errors
+                                );
                             } else {
-                                $this->processValidation($xxx, $yy, $nestedObject, $errors[$fieldName]);
+                                $this->processValidation($xxx, $yy, (object)$nestedObject, $errors[$fieldName]);
                             }
                         }
                     }
@@ -66,7 +82,8 @@ class Validator
                         $this->processValidation($xRule, $xFieldName, $nestedObject, $errors);
                     } else {
                         $nestedObject = $this->getFieldValue($fieldName, $object);
-                        $this->processValidation($xRule, $xFieldName, $nestedObject, $errors[$fieldName]);
+                        $errors[$fieldName] = [];
+                        $this->processValidation($xRule, $xFieldName, (object)$nestedObject, $errors[$fieldName]);
                     }
                 }
             }

@@ -5,6 +5,8 @@ namespace Ayeo\Validator2;
 use Ayeo\Validator2\Constraint\ExpectedProperites;
 use Ayeo\Validator2\Constraint\Greater;
 use Ayeo\Validator2\Constraint\Integer;
+use Ayeo\Validator2\Constraint\MinLength;
+use Ayeo\Validator2\Constraint\NotAllowed;
 use Ayeo\Validator2\Constraint\NotNull;
 use Ayeo\Validator2\Constraint\Numeric;
 use Ayeo\Validator2\Constraint\ValidRegexp;
@@ -17,7 +19,9 @@ class Translator
         'numeric' => Numeric::class,
         'valid_regexp' => ValidRegexp::class,
         'expected_properties' => ExpectedProperites::class,
-        'greater' => Greater::class
+        'greater' => Greater::class,
+        'not_allowed' => NotAllowed::class,
+        'min_length' => MinLength::class
     ];
 
     private function isValidSlug($slug): bool

@@ -3,6 +3,7 @@
 namespace Ayeo\Validator2\Tests;
 
 use Ayeo\Validator2\Constraint\MinLength;
+use Ayeo\Validator2\Constraint\NotAllowed;
 use Ayeo\Validator2\Constraint\NotNull;
 use Ayeo\Validator2\Constraint\OneOf;
 use Ayeo\Validator2\Error;
@@ -33,24 +34,6 @@ class NewFormatTest extends TestCase
         $this->assertEquals($expected, $errors);
     }
 
-    public function testWithCode()
-    {
-        $nameRule = new Rule(new MinLength(20), 'Name is to short', '6637');
-        $rules = ['name' => $nameRule];
-
-        $object = new SampleClass();
-        $object->name = 'Sample name';
-
-        $validator = new Validator($rules);
-        $validator->validate($object);
-        $errors = $validator->getErrors();
-
-        $expected = [
-            'name' => new Error('Name is to short', ['minLength' => 20], '6637')
-        ];
-        $this->assertEquals($expected, $errors);
-    }
-
     public function testTwoRulesToSingleField()
     {
         $nameRule1 = new Rule(new MinLength(4), 'Name is to short');
@@ -60,8 +43,8 @@ class NewFormatTest extends TestCase
         $object = new SampleClass();
         $object->name = 'xx';
 
-        $validator = new Validator($rules);
-        $validator->validate($object);
+        $validator = new Validator();
+        $validator->validate($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -79,8 +62,8 @@ class NewFormatTest extends TestCase
         $nameRule = new Rule(new MinLength(20), 'Name is to short');
         $rules = ['nested' => ['name' => $nameRule]];
 
-        $validator = new Validator($rules);
-        $this->assertFalse($validator->validate($sample));
+        $validator = new Validator();
+        $this->assertFalse($validator->validate($sample, $rules));
         $expected = [
             'nested' => [
                 'name' => new Error('Name is to short', ['minLength' => 20])
@@ -100,8 +83,8 @@ class NewFormatTest extends TestCase
         $nameRule = new Rule(new MinLength(20), 'Name is to short');
         $rules = ['nested' => ['nested' => ['name' => $nameRule]]];
 
-        $validator = new Validator($rules);
-        $this->assertFalse($validator->validate($sample));
+        $validator = new Validator();
+        $this->assertFalse($validator->validate($sample, $rules));
         $expected = [
             'nested' => [
                 'nested' => [
@@ -119,14 +102,17 @@ class NewFormatTest extends TestCase
         $sample->name = 'special-value';
         $sample->nested['min'] = 'the only valid';
 
-        $rule = new Rule(new OneOf(['the only valid']), 'Invalid value');
         $rules = [
             'name' => new Rule(new NotNull(), 'Name must not be null'),
-            'nested' => [new Conditional('name', 'special-value', [$rule])]
+            'nested' => [
+                new Conditional('name', 'special-value', [
+                    'min' => new Rule(new OneOf(['the only valid']), 'Invalid value')
+                ])
+            ]
         ];
 
-        $validator = new Validator($rules);
-        $result = $validator->validate($sample);
+        $validator = new Validator();
+        $result = $validator->validate($sample, $rules);
         $this->assertTrue($result);
     }
 
@@ -146,8 +132,8 @@ class NewFormatTest extends TestCase
             ]
         ];
 
-        $validator = new Validator($rules);
-        $this->assertFalse($validator->validate($sample));
+        $validator = new Validator();
+        $this->assertFalse($validator->validate($sample, $rules));
         $expected = [
             'nested' => [
                 'min' => new Error('Invalid value', ['allowedValues' => ['the only valid']])
@@ -171,8 +157,8 @@ class NewFormatTest extends TestCase
                 )
             ]
         ];
-        $validator = new Validator($rules);
-        $this->assertTrue($validator->validate($sample));
+        $validator = new Validator();
+        $this->assertTrue($validator->validate($sample, $rules));
         $expected = [];
         $errors = $validator->getErrors();
         $this->assertEquals($expected, $errors);
@@ -194,14 +180,61 @@ class NewFormatTest extends TestCase
             ]
         ];
 
-        $validator = new Validator($rules);
-        $this->assertFalse($validator->validate($sample));
+        $validator = new Validator();
+        $this->assertFalse($validator->validate($sample, $rules));
         $expected = [
             'nested' => [
                 'name' => new Error('Invalid value', ['allowedValues' => ['b']])
             ]
         ];
         $errors = $validator->getErrors();
+        $this->assertEquals($expected, $errors);
+    }
+
+    public function testNotAllowed()
+    {
+        $rules = [
+            'description' => [
+                new Conditional('name', 'test', [
+                    '' => new Rule(new NotAllowed(), '1500')
+                ])
+        ]];
+
+        $object = new \stdClass();
+        $object->name = 'test';
+        $object->description = 'tralalala';
+
+        $validator = new Validator();
+        $validator->validate($object, $rules);
+        $errors = $validator->getErrors();
+
+        $expected = [
+            'description' => new Error('1500', [])
+        ];
+        $this->assertEquals($expected, $errors);
+    }
+
+    public function testNotAllowedWithObject()
+    {
+        $rules = [
+            'description' => [
+                new Conditional('name', 'test', [
+                    '' => new Rule(new NotAllowed(), '1500')
+                ])
+            ]];
+
+        $object = new \stdClass();
+        $object->name = 'test';
+        $object->description = new \stdClass();
+        $object->description->body = 'Tralalalal';
+
+        $validator = new Validator();
+        $validator->validate($object, $rules);
+        $errors = $validator->getErrors();
+
+        $expected = [
+            'description' => new Error('1500', [])
+        ];
         $this->assertEquals($expected, $errors);
     }
 }

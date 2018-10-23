@@ -22,8 +22,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator($rules);
-        $validator->validate($range);
+        $validator = new Validator();
+        $validator->validate($range, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -43,8 +43,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator($rules);
-        $this->assertTrue($validator->validate($range));
+        $validator = new Validator();
+        $this->assertTrue($validator->validate($range, $rules));
     }
 
     public function testWithUnsetMax()
@@ -56,8 +56,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator($rules);
-        $this->assertTrue($validator->validate($range));
+        $validator = new Validator();
+        $this->assertTrue($validator->validate($range, $rules));
     }
 
     public function testNested()
@@ -81,8 +81,8 @@ class RelatedTest extends TestCase
                 ])
             ]
         ];
-        $validator = new Validator($rules);
-        $this->assertFalse($validator->validate($object));
+        $validator = new Validator();
+        $this->assertFalse($validator->validate($object, $rules));
         $errors = $validator->getErrors();
         $this->assertEquals($expected, $errors);
     }
