@@ -61,7 +61,7 @@ class Translator
             if ($this->isConditional($name)) {
                 $data = explode('=', $name);
                 $result[] = new Conditional($data[0], $data[1], $this->translate($rules));
-            } elseif ($this->isValidSlug($rules[0])) {
+            } elseif (isset($rules[0]) && $this->isValidSlug($rules[0])) {
                 $rule = $this->buildRule($rules);
                 $result[$name] = $rule;
             } else {
@@ -77,6 +77,6 @@ class Translator
     {
         $slug = $rules[0];
         $constraint = $this->buildConstraint($slug);
-        return new Rule($constraint, $rules[1], $rules[2]);
+        return new Rule($constraint, $rules[1], $rules[2] ?? '');
     }
 }
