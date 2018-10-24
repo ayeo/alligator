@@ -6,7 +6,7 @@ class ValidRegexp extends AbstractConstraint
 {
     public function run($regex): bool
     {
-        if (@preg_match($regex, null) === false) {
+        if (@preg_match((string)$regex, '') === false) {
             return false;
         }
 

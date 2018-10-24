@@ -7,9 +7,9 @@ class MinLength extends AbstractConstraint
     /** @var integer */
     private $min;
 
-    public function __construct(int $min)
+    public function __construct($min)
     {
-        $this->min = $min;
+        $this->min = (int)$min;
     }
 
     public function run($value): bool
