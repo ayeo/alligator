@@ -1,9 +1,9 @@
 {
-  "name": "ayeo/validator2",
+  "name": "ayeo/alligator",
   "description": "Universal and independent validator",
   "keywords": ["validator"],
   "type": "library",
-  "homepage": "https://github.com/ayeo/validator2",
+  "homepage": "https://github.com/ayeo/alligator",
   "license": "MIT",
   "authors": [
     {
