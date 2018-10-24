@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2\Constraint;
+namespace Ayeo\Alligator\Constraint;
 
-use Ayeo\Validator2\CheckNull;
+use Ayeo\Alligator\CheckNull;
 
 class MinItemsNumber extends AbstractConstraint implements CheckNull
 {

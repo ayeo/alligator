@@ -1,36 +1,24 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use PHPUnit_Framework_TestCase;
-use Ayeo\Validator2\Tests\Mock\SampleClass;
-use Ayeo\Validator2\Constraint\ClassInstance;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class ClassInstanceTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Ayeo\Alligator\Tests\Sample\SampleClass;
+use Ayeo\Alligator\Constraint\ClassInstance;
+
+class ClassInstanceTest extends TestCase
 {
     public function testValidObject()
     {
         $sample = new SampleClass();
-        $constraint = new ClassInstance('\Ayeo\Validator\Tests\Mock\SampleClass');
-        $constraint->run($sample);
-
-        $this->assertTrue($constraint->isValid());
+        $constraint = new ClassInstance(SampleClass::class);
+        $this->assertTrue($constraint->run($sample));
     }
 
     public function testInvalidObject()
     {
         $sample = new SampleClass();
         $constraint = new ClassInstance('UnexistingClass');
-        $constraint->run($sample);
-
-        $this->assertFalse($constraint->isValid());
-    }
-
-    /**
-     * @expectedException \Ayeo\Validator2\Exception\InvalidConstraintParameter
-     */
-    public function testNonStringParameter()
-    {
-        $sample = new SampleClass();
-        new ClassInstance($sample);
+        $this->assertFalse($constraint->run($sample));
     }
 }

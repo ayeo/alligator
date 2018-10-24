@@ -1,21 +1,21 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Constraint\InArray;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class InArrayTest extends \PHPUnit_Framework_TestCase
+use Ayeo\Alligator\Constraint\InArray;
+use PHPUnit\Framework\TestCase;
+
+class InArrayTest extends TestCase
 {
     public function testBase()
     {
         $constraint = new InArray([1, 2, 3]);
-        $constraint->run(4);
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run(4));
     }
 
     public function testNull()
     {
         $constraint = new InArray([1, 2, 3]);
-        $constraint->run(null);
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run(null));
     }
 }

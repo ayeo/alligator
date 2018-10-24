@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator2;
+namespace Ayeo\Alligator;
 
 class Validator
 {
@@ -168,7 +168,7 @@ class Validator
             if (is_array($error)) {
                 $this->decorateErrors($error, $table);
             } else {
-                /* @var $error \Ayeo\Validator2\Error */
+                /* @var $error \Ayeo\Alligator\Error */
                 if ($table->has($error->getCode())) {
                     $error->setMessage($table->getMessage($error->getCode()));
                 }

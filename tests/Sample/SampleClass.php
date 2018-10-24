@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator2\Tests\Mock;
+namespace Ayeo\Alligator\Tests\Sample;
 
 class SampleClass
 {

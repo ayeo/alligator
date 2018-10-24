@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2;
+namespace Ayeo\Alligator;
 
-use Ayeo\Validator2\Constraint\ArrayOf;
-use Ayeo\Validator2\Constraint\ExpectedProperites;
-use Ayeo\Validator2\Constraint\Greater;
-use Ayeo\Validator2\Constraint\Integer;
-use Ayeo\Validator2\Constraint\MinItemsNumber;
-use Ayeo\Validator2\Constraint\MinLength;
-use Ayeo\Validator2\Constraint\NotAllowed;
-use Ayeo\Validator2\Constraint\NotNull;
-use Ayeo\Validator2\Constraint\Numeric;
-use Ayeo\Validator2\Constraint\ValidRegexp;
+use Ayeo\Alligator\Constraint\ArrayOf;
+use Ayeo\Alligator\Constraint\ExpectedProperites;
+use Ayeo\Alligator\Constraint\Greater;
+use Ayeo\Alligator\Constraint\Integer;
+use Ayeo\Alligator\Constraint\MinItemsNumber;
+use Ayeo\Alligator\Constraint\MinLength;
+use Ayeo\Alligator\Constraint\NotAllowed;
+use Ayeo\Alligator\Constraint\NotNull;
+use Ayeo\Alligator\Constraint\Numeric;
+use Ayeo\Alligator\Constraint\ValidRegexp;
 
 class Translator
 {

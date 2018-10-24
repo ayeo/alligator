@@ -1,39 +1,23 @@
-<?php
-namespace Ayeo\Validator2\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Exception\InvalidConstraintParameter;
+namespace Ayeo\Alligator\Constraint;
 
 class NumericMin extends AbstractConstraint
 {
+    /** @var float */
 	private $min;
 
-    /**
-     * @param int|float $min
-     * @throws InvalidConstraintParameter
-     */
-	public function __construct($min = 0)
+	public function __construct(float $min = 0)
 	{
-        if (is_numeric($min))
-        {
-            $this->min = $min;
-        }
-        else
-        {
-            throw new InvalidConstraintParameter;
-        }
-
+	    $this->min = $min;
 	}
 
-	public function run($value)
+	public function run($value): bool
 	{
-		if (is_numeric($value) === false)
-		{
-			$this->addError('must_be_numeric');
-		}
+	    if (is_numeric($value) === false) {
+	        return false;
+        }
 
-		if ($value < $this->min)
-		{
-			$this->addError('must_be_greater_than', $this->min);
-		}
+	    return (float)$value >= $this->min;
 	}
 }

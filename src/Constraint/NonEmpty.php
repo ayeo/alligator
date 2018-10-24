@@ -1,18 +1,15 @@
-<?php
-namespace Ayeo\Validator2\Constraint;
+<?php declare(strict_types = 1);
+
+namespace Ayeo\Alligator\Constraint;
 
 class NonEmpty extends AbstractConstraint
 {
-    public function run($value)
+    public function run($value): bool
     {
-        if ($value === 0 || $value === '0')
-        {
-            return;
+        if ($value === 0 || $value === '0') {
+            return true;
         }
 
-        if (empty($value))
-        {
-            $this->addError('must_not_be_empty');
-        }
+        return empty($value) === false;
     }
 }

@@ -1,15 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2\Constraint;
-
+namespace Ayeo\Alligator\Constraint;
 
 class IsArray extends AbstractConstraint
 {
-	public function run($value)
+	public function run($value): bool
 	{
-		if (is_array($value) === false)
-		{
-			$this->addError('Given value is not an array');
-		}
+		return is_array($value);
 	}
 }

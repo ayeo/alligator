@@ -1,47 +1,33 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Constraint\NumericMin;
-use PHPUnit_Framework_TestCase;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class NumericMinTest extends PHPUnit_Framework_TestCase
+use Ayeo\Alligator\Constraint\NumericMin;
+use PHPUnit\Framework\TestCase;
+
+class NumericMinTest extends TestCase
 {
     public function testNoNumeric()
     {
         $constraint = new NumericMin(10);
-        $constraint->run('string');
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run('string'));
     }
 
     public function testEmptyParameter()
     {
         $constraint = new NumericMin();
-        $constraint->run('string');
-        $this->assertFalse($constraint->isValid());
-    }
-
-    /**
-     * @expectedException \Ayeo\Validator2\Exception\InvalidConstraintParameter
-     */
-    public function testStringParameter()
-    {
-        $constraint = new NumericMin('string');
-        $constraint->run('string');
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run('string'));
     }
 
     public function testCompareEquals()
     {
         $constraint = new NumericMin(12);
-        $constraint->run(12);
-        $this->assertTrue($constraint->isValid());
+        $this->assertTrue($constraint->run(12));
     }
 
-    //should pass through
     public function testCompareEqualsFloat()
     {
         $constraint = new NumericMin(12.00000009);
-        $constraint->run(12);
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run(12));
     }
 }

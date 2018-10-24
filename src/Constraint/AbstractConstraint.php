@@ -1,7 +1,7 @@
 <?php
-namespace Ayeo\Validator2\Constraint;
+namespace Ayeo\Alligator\Constraint;
 
-use Ayeo\Validator2\CheckNull;
+use Ayeo\Alligator\CheckNull;
 
 abstract class AbstractConstraint
 {

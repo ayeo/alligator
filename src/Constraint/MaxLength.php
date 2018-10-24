@@ -1,26 +1,19 @@
-<?php
-namespace Ayeo\Validator2\Constraint;
+<?php declare(strict_types = 1);
+
+namespace Ayeo\Alligator\Constraint;
 
 class MaxLength extends AbstractConstraint
 {
-    /**
-     * @var integer
-     */
+    /** @var integer */
     private $max;
 
-    /**
-     * @param int $max
-     */
-    public function __construct($max = 0)
+    public function __construct(int $max)
     {
         $this->max = $max;
     }
 
-    public function run($value)
+    public function run($value): bool
     {
-        if (mb_strlen($value) > $this->max)
-        {
-            $this->addError('must_be_shorter_than', $this->max);
-        }
+        return mb_strlen((string)$value) <= $this->max;
     }
 }

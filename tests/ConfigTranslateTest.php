@@ -1,15 +1,15 @@
 <?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2\Tests;
+namespace Ayeo\Alligator\Tests;
 
-use Ayeo\Validator2\Conditional;
-use Ayeo\Validator2\Constraint\ExpectedProperites;
-use Ayeo\Validator2\Constraint\Greater;
-use Ayeo\Validator2\Constraint\Integer;
-use Ayeo\Validator2\Constraint\NotNull;
-use Ayeo\Validator2\Constraint\ValidRegexp;
-use Ayeo\Validator2\Rule;
-use Ayeo\Validator2\Translator;
+use Ayeo\Alligator\Conditional;
+use Ayeo\Alligator\Constraint\ExpectedProperites;
+use Ayeo\Alligator\Constraint\Greater;
+use Ayeo\Alligator\Constraint\Integer;
+use Ayeo\Alligator\Constraint\NotNull;
+use Ayeo\Alligator\Constraint\ValidRegexp;
+use Ayeo\Alligator\Rule;
+use Ayeo\Alligator\Translator;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTranslateTest extends TestCase

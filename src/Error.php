@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator2;
+namespace Ayeo\Alligator;
 
 class Error
 {

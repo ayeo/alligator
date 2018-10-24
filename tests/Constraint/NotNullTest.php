@@ -1,29 +1,27 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Constraint\NotNull;
-use PHPUnit_Framework_TestCase;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class NotNullTest extends PHPUnit_Framework_TestCase
+use Ayeo\Alligator\Constraint\NotNull;
+use PHPUnit\Framework\TestCase;
+
+class NotNullTest extends TestCase
 {
     public function testNullValue()
     {
         $constraint = new NotNull();
-        $constraint->run(null);
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run(null));
     }
 
     public function testZero()
     {
         $constraint = new NotNull();
-        $constraint->run(0);
-        $this->assertTrue($constraint->isValid());
+        $this->assertTrue($constraint->run(0));
     }
 
     public function testEmptyString()
     {
         $constraint = new NotNull();
-        $constraint->run('');
-        $this->assertTrue($constraint->isValid());
+        $this->assertTrue($constraint->run(''));
     }
 }

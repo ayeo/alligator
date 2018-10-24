@@ -1,15 +1,14 @@
 {
   "name": "ayeo/alligator",
-  "description": "Universal and independent validator",
-  "keywords": ["validator"],
+  "description": "Simple validation util",
+  "keywords": ["validator", "validation"],
   "type": "library",
   "homepage": "https://github.com/ayeo/alligator",
   "license": "MIT",
   "authors": [
     {
       "name": "ayeo",
-      "email": "me@ayeo.pl",
-      "homepage": "http://ayeo.pl"
+      "email": "me@ayeo.pl"
     }
   ],
   "require": {
@@ -20,12 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Ayeo\\Validator2\\": "src//"
+      "Ayeo\\Alligator\\": "src//"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ayeo\\Validator2\\Tests\\": "tests//"
+      "Ayeo\\Alligator\\Tests\\": "tests//"
     }
   }
 }

@@ -1,8 +1,10 @@
-<?php
-namespace Ayeo\Validator2\Constraint;
+<?php declare(strict_types = 1);
+
+namespace Ayeo\Alligator\Constraint;
 
 class InArray extends AbstractConstraint
 {
+    /** @var string */
     private $array;
 
     public function __construct(array $array)
@@ -10,11 +12,8 @@ class InArray extends AbstractConstraint
         $this->array = $array;
     }
 
-    public function run($value)
+    public function run($value): bool
     {
-        if (in_array($value, $this->array) === false)
-        {
-            $this->addError('Given value is not allowed');
-        }
+        return in_array($value, $this->array);
     }
 }

@@ -1,23 +1,19 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Constraint\MinLength;
-use PHPUnit_Framework_TestCase;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class MinLengthTest extends PHPUnit_Framework_TestCase
+use Ayeo\Alligator\Constraint\MinLength;
+use PHPUnit\Framework\TestCase;
+
+class MinLengthTest extends TestCase
 {
     /**
      * @dataProvider cases
-     * @param $isValid
-     * @param $number
-     * @param $value
      */
-    public function testCases($isValid, $number, $value)
+    public function testCases(bool $isValid, int $number, ?string $value)
     {
         $constraint = new MinLength($number);
-        $constraint->run($value);
-
-        $this->assertEquals($isValid, $constraint->isValid());
+        $this->assertEquals($isValid, $constraint->run($value));
     }
 
     public function cases()

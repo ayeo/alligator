@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2;
+namespace Ayeo\Alligator;
 
 class ErrorCodesTable
 {

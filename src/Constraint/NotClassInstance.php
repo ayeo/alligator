@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator2\Constraint;
+namespace Ayeo\Alligator\Constraint;
 
 class NotClassInstance extends AbstractConstraint
 {

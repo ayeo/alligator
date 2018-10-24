@@ -1,42 +1,21 @@
-<?php
-namespace Ayeo\Validator2\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Exception\InvalidConstraintParameter;
+namespace Ayeo\Alligator\Constraint;
 
 class ClassInstance extends AbstractConstraint
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $className;
 
-    /**
-     * @param $className
-     * @throws InvalidConstraintParameter
-     */
-    public function __construct($className)
+    public function __construct(string $className)
     {
-        if (is_string($className))
-        {
-            $this->className = $className;
-        }
-        else
-        {
-            throw new InvalidConstraintParameter();
-        }
+        $this->className = $className;
     }
 
-    /**
-     * @param $value
-     * @return bool
-     */
-    public function run($value)
+    public function run($value): bool
     {
         $className = $this->className;
 
-        if (!$value instanceof $className)
-        {
-            $this->addError('invalid_object_type');
-        }
+        return $value instanceof $className;
     }
 }

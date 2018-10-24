@@ -1,13 +1,13 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2\Tests;
+namespace Ayeo\Alligator\Tests;
 
-use Ayeo\Validator2\Constraint\Greater;
-use Ayeo\Validator2\Error;
-use Ayeo\Validator2\Rule;
-use Ayeo\Validator2\Tests\Mock\Range;
-use Ayeo\Validator2\Tests\Mock\SampleClass;
-use Ayeo\Validator2\Validator;
+use Ayeo\Alligator\Constraint\Greater;
+use Ayeo\Alligator\Error;
+use Ayeo\Alligator\Rule;
+use Ayeo\Alligator\Tests\Sample\Range;
+use Ayeo\Alligator\Tests\Sample\SampleClass;
+use Ayeo\Alligator\Validator;
 use PHPUnit\Framework\TestCase;
 
 class RelatedTest extends TestCase

@@ -1,9 +1,11 @@
-<?php
-namespace Ayeo\Validator2\Tests\Constraint;
+<?php declare(strict_types = 1);
 
-use Ayeo\Validator2\Constraint\IsArray;
+namespace Ayeo\Alligator\Tests\Constraint;
 
-class IsArrayTest extends \PHPUnit_Framework_TestCase
+use Ayeo\Alligator\Constraint\IsArray;
+use PHPUnit\Framework\TestCase;
+
+class IsArrayTest extends TestCase
 {
 	/**
 	 * @dataProvider invalidDataProvider
@@ -11,8 +13,7 @@ class IsArrayTest extends \PHPUnit_Framework_TestCase
     public function testInvalidData($value)
     {
         $constraint = new IsArray();
-        $constraint->run($value);
-        $this->assertFalse($constraint->isValid());
+        $this->assertFalse($constraint->run($value));
     }
 
 	/**
@@ -21,11 +22,10 @@ class IsArrayTest extends \PHPUnit_Framework_TestCase
     public function testValidData($value)
     {
         $constraint = new IsArray();
-        $constraint->run($value);
-        $this->assertTrue($constraint->isValid());
+        $this->assertTrue($constraint->run($value));
     }
 
-	public function invalidDataProvider()
+	public function invalidDataProvider(): array
 	{
 		return [
 			'string' => ['string'],
@@ -39,7 +39,7 @@ class IsArrayTest extends \PHPUnit_Framework_TestCase
 		];
     }
 
-	public function validDataProvider()
+	public function validDataProvider(): array
 	{
 		return [
 			[[1, 2, 3]],

@@ -1,5 +1,5 @@
 <?php
-namespace Ayeo\Validator2\Exception;
+namespace Ayeo\Alligator\Exception;
 
 use Exception;
 

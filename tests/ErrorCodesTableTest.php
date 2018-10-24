@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Ayeo\Validator2\Tests;
+namespace Ayeo\Alligator\Tests;
 
-use Ayeo\Validator2\Constraint\MinLength;
-use Ayeo\Validator2\Error;
-use Ayeo\Validator2\ErrorCodesTable;
-use Ayeo\Validator2\Rule;
-use Ayeo\Validator2\Tests\Mock\SampleClass;
-use Ayeo\Validator2\Validator;
+use Ayeo\Alligator\Constraint\MinLength;
+use Ayeo\Alligator\Error;
+use Ayeo\Alligator\ErrorCodesTable;
+use Ayeo\Alligator\Rule;
+use Ayeo\Alligator\Tests\Sample\SampleClass;
+use Ayeo\Alligator\Validator;
 use PHPUnit\Framework\TestCase;
 
 class ErrorCodesTableTest extends TestCase
