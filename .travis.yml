@@ -5,9 +5,10 @@ php:
 
 env:
  - CODECOV_TOKEN="3723db4a-511e-40ff-bc99-c8da7d24207e"
- 
+
 before_script:
- - composer install --no-interaction  --dev
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
   - phpunit --coverage-clover=coverage.xml --bootstrap vendor/autoload.php tests
