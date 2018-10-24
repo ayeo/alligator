@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator\Constraint;
 
 class DateTimeFormat extends AbstractConstraint
@@ -13,7 +14,7 @@ class DateTimeFormat extends AbstractConstraint
         $this->format = $format;
     }
 
-    public function run($value)
+    public function run($value): void
     {
         \DateTime::createFromFormat($this->format, $value);
         $errors = \DateTime::getLastErrors();

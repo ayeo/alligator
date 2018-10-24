@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator\Constraint;
 
 class Regexp extends AbstractConstraint
@@ -9,13 +10,13 @@ class Regexp extends AbstractConstraint
     /** @var string */
     private $errorMessage;
 
-    public function __construct(string $pattern, string $errorMessage = null)
+    public function __construct(string $pattern, ?string $errorMessage = null)
     {
         $this->pattern = $pattern;
         $this->errorMessage = $errorMessage;
     }
 
-    public function run($value)
+    public function run($value): void
     {
         $result = preg_match($this->pattern, $value);
         if ($result === false || $result === 0) {

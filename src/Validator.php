@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator;
 
 class Validator
@@ -29,7 +30,7 @@ class Validator
         return count($this->getErrors()) === 0;
     }
 
-    private function processValidation($rule, string $fieldName, $object, array &$errors = [])
+    private function processValidation($rule, string $fieldName, $object, array &$errors = []): void
     {
         if (isset($errors[$fieldName]) === false) {
             $errors[$fieldName] = [];
@@ -130,7 +131,7 @@ class Validator
         $reflection = new \ReflectionClass(get_class($object));
         try {
             $property = $reflection->getProperty($fieldName);
-        }         catch (\Exception $e) {
+        }         catch (\Throwable $e) {
             $property = null;
         }
 

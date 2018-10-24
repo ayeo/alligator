@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator\Constraint;
 
 class Email extends AbstractConstraint{

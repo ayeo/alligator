@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator\Constraint;
 
 class NotClassInstance extends AbstractConstraint
@@ -13,7 +14,7 @@ class NotClassInstance extends AbstractConstraint
         $this->className = $className;
     }
 
-    public function run($value)
+    public function run($value): void
     {
         $className = $this->className;
 

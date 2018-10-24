@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Ayeo\Alligator\Constraint;
 
 class NumericMax extends AbstractConstraint
@@ -11,7 +12,7 @@ class NumericMax extends AbstractConstraint
     /**
      * @param int $max
      */
-    public function __construct($max = 0)
+    public function __construct(int $max = 0)
     {
         $this->max = $max;
     }
