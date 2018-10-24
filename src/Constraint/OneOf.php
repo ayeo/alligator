@@ -4,6 +4,8 @@ namespace Ayeo\Alligator\Constraint;
 
 class OneOf extends AbstractConstraint{
 
+    private $allowedValues;
+
     public function __construct(array $allowedValues)
     {
         $this->allowedValues = $allowedValues;

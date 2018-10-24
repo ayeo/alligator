@@ -11,6 +11,7 @@ use Ayeo\Alligator\Constraint\MinLength;
 use Ayeo\Alligator\Constraint\NotAllowed;
 use Ayeo\Alligator\Constraint\NotNull;
 use Ayeo\Alligator\Constraint\Numeric;
+use Ayeo\Alligator\Constraint\OneOf;
 use Ayeo\Alligator\Constraint\ValidRegexp;
 
 class Translator
@@ -24,7 +25,7 @@ class Translator
         'greater' => Greater::class,
         'not_allowed' => NotAllowed::class,
         'min_length' => MinLength::class,
-        'array_of' => ArrayOf::class,
+        'one_of' => OneOf::class,
         'min_items_number' => MinItemsNumber::class
     ];
 
