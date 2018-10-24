@@ -1,4 +1,4 @@
-# Validator2
+# Alligator [![Build Status](https://travis-ci.org/ayeo/alligator.svg?branch=master)](https://travis-ci.org/ayeo/alligator)
 
 DO NOT USE IT YET: it is draft 
 
@@ -9,7 +9,7 @@ Install
 
 Using composer
 ```
-composer require ayeo/validator2
+composer require ayeo/alligator
 ```
 
 Example objects
