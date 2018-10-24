@@ -11,7 +11,7 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
-  - phpunit --coverage-clover=coverage.xml --bootstrap vendor/autoload.php tests
+  - phpunit --coverage-clover=coverage.xml --whitelist=src --bootstrap vendor/autoload.php tests
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)
