@@ -3,4 +3,4 @@ php:
 - '7.2'
 - '7.3'
 
-script: phpunit --bootstrap vendor/autoload.php tests
+script: phpunit tests
