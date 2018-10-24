@@ -6,23 +6,23 @@ use Ayeo\Alligator\CheckNull;
 
 class MinItemsNumber extends AbstractConstraint implements CheckNull
 {
-	/** @var int */
-	private $min;
+    /** @var int */
+    private $min;
 
-	public function __construct(string $min)
-	{
-		$this->min = (int)$min;
-	}
+    public function __construct(string $min)
+    {
+        $this->min = (int)$min;
+    }
 
-	public function run($value): bool
-	{
-	    if (is_array($value) === false ) {
-	        return false;
+    public function run($value): bool
+    {
+        if (is_array($value) === false) {
+            return false;
         }
-		return count($value) >= $this->min;
-	}
+        return count($value) >= $this->min;
+    }
 
-	public function getMetadata(): array
+    public function getMetadata(): array
     {
         return ['minItemsNo' => $this->min];
     }

@@ -4,8 +4,8 @@ namespace Ayeo\Alligator\Constraint;
 
 class IsArray extends AbstractConstraint
 {
-	public function run($value): bool
-	{
-		return is_array($value);
-	}
+    public function run($value): bool
+    {
+        return is_array($value);
+    }
 }

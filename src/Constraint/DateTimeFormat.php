@@ -18,8 +18,7 @@ class DateTimeFormat extends AbstractConstraint
         \DateTime::createFromFormat($this->format, $value);
         $errors = \DateTime::getLastErrors();
 
-        if (count($errors['warnings']) || count($errors['errors']))
-        {
+        if (count($errors['warnings']) || count($errors['errors'])) {
             $this->addError('must_be_datetime_format', $this->format);
         }
     }

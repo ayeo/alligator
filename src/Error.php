@@ -33,4 +33,3 @@ class Error
         return $this->code;
     }
 }
-

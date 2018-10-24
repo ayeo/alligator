@@ -17,8 +17,7 @@ class NotClassInstance extends AbstractConstraint
     {
         $className = $this->className;
 
-        if ($value instanceof $className)
-        {
+        if ($value instanceof $className) {
             $this->addError('must_not_be_instance', $this->className);
         }
     }

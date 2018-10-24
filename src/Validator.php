@@ -9,11 +9,9 @@ class Validator
     public function __construct(?string $version = null)
     {
         if (is_null($version)) {
-
         } else {
             $this->translator = new Translator(); //todo: depends on version
         }
-
     }
 
     public function validate($object, $rules)
@@ -105,7 +103,6 @@ class Validator
             if ($result === false) {
                 $this->invalidFields[] = $fieldName;
                 $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
-
             }
         }
     }
@@ -133,8 +130,7 @@ class Validator
         $reflection = new \ReflectionClass(get_class($object));
         try {
             $property = $reflection->getProperty($fieldName);
-        }
-        catch (\Exception $e) {
+        }         catch (\Exception $e) {
             $property = null;
         }
 
@@ -143,9 +139,8 @@ class Validator
 
         if ($property && $property->isPublic()) {
             $value = $property->getValue($object);
-        }
-        elseif ($reflection->hasMethod($methodName)) {
-            $value = call_user_func(array($object, $methodName));
+        }         elseif ($reflection->hasMethod($methodName)) {
+            $value = call_user_func([$object, $methodName]);
         }
 
         return $value;
@@ -173,7 +168,6 @@ class Validator
                     $error->setMessage($table->getMessage($error->getCode()));
                 }
             }
-
         }
 
         return $errors;

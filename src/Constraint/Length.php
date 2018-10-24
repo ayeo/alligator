@@ -18,8 +18,7 @@ class Length extends AbstractConstraint
 
     public function run($value)
     {
-        if (mb_strlen($value) !== $this->length)
-        {
+        if (mb_strlen($value) !== $this->length) {
             $this->addError('must_be_exactly_char_length', $this->length);
         }
     }

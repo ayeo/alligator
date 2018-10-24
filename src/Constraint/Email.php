@@ -1,12 +1,11 @@
 <?php
 namespace Ayeo\Alligator\Constraint;
 
-class Email extends AbstractConstraint
-{
+class Email extends AbstractConstraint{
+
     public function run($value)
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL))
-        {
+        if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
             return true;
         }
 

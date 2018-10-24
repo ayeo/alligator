@@ -1,8 +1,8 @@
 <?php
 namespace Ayeo\Alligator\Constraint;
 
-class OneOf extends AbstractConstraint
-{
+class OneOf extends AbstractConstraint{
+
     public function __construct(array $allowedValues)
     {
         $this->allowedValues = $allowedValues;

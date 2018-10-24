@@ -20,13 +20,11 @@ class DateTimeHigherThan extends AbstractConstraint
 
     public function run($value)
     {
-        if (!$value instanceof DateTime)
-        {
+        if (!$value instanceof DateTime) {
             return $this->addError('invalid_object');
         }
 
-        if ($value->getTimestamp() <= $this->dateTimeToCompare->getTimestamp())
-        {
+        if ($value->getTimestamp() <= $this->dateTimeToCompare->getTimestamp()) {
             $this->addError('must_be_higher_than', $this->dateTimeToCompare->format($this->format));
         }
     }

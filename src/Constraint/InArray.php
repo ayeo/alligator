@@ -2,8 +2,8 @@
 
 namespace Ayeo\Alligator\Constraint;
 
-class InArray extends AbstractConstraint
-{
+class InArray extends AbstractConstraint{
+
     /** @var string */
     private $array;
 

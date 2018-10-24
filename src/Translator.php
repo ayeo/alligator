@@ -49,7 +49,6 @@ class Translator
             } else {
                 $data[$key] = $value;
             }
-
         }
 
         return new $className(...$data);
