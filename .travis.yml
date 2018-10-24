@@ -1,7 +1,16 @@
 language: php
 php:
-- '7.2'
-- '7.3'
+ - '7.2'
+ - '7.3'
 
-before_script: composer install
-script: phpunit --bootstrap vendor/autoload.php tests
+env:
+ - CODECOV_TOKEN="3723db4a-511e-40ff-bc99-c8da7d24207e"
+ 
+before_script:
+ - composer install --no-interaction  --dev
+
+script:
+  - phpunit --coverage-clover=coverage.xml --bootstrap vendor/autoload.php tests
+
+after_success:
+ - bash <(curl -s https://codecov.io/bash)
