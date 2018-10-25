@@ -14,7 +14,7 @@ composer requrie ayeo/alligator
 
 ## Rules
 
-Alligator use scenario is all about working with entire resoucr objects. Rules are defined at level of the object also.
+Alligator use scenario is all about working with entire resource objects. Rules are defined at level of the object also.
 Lets consider simple example.
 ```php
 class Person 
@@ -58,7 +58,7 @@ if set must be integer. Insurance number is required only if age is above 21 and
 
 ## Usage
 
-Having rules at place we are ready to try what Alligator can do for us.
+Having rules at place we are ready to check what Alligator can do for us.
 ```php
 $food = new Person('Rocky', 'Balboa');
 $food->setAge(37);
