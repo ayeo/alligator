@@ -12,12 +12,12 @@ use Ayeo\Alligator\Rule;
 use Ayeo\Alligator\Translator;
 use PHPUnit\Framework\TestCase;
 
-class ConfigTranslateTest extends TestCase
+class TranslatorTest extends TestCase
 {
     public function testSimple(): void
     {
-        $input = ['symbol' => ['not_null', '0001', 'Required']];
-        $expectedOutput = ['symbol' =>  new Rule(new NotNull(), '0001', 'Required')];
+        $input = ['symbol' => ['not_null', '0001']];
+        $expectedOutput = ['symbol' =>  new Rule(new NotNull(), '0001')];
         $translator = new Translator();
         $this->assertEquals($expectedOutput, $translator->translate($input));
     }
@@ -62,6 +62,23 @@ class ConfigTranslateTest extends TestCase
         $this->assertEquals($expectedOutput, $result);
     }
 
+    public function testConditionalWithGreaterThanOperator(): void
+    {
+        $input = [
+            'age>=21' => [
+                'salary' => ['not_null', 'required'],
+            ]
+        ];
+        $expectedOutput = [
+            new Conditional('age', '>=', '21', [
+                'salary' => new Rule(new NotNull(), 'required'),
+            ])
+        ];
+        $translator = new Translator();
+        $result = $translator->translate($input);
+        $this->assertEquals($expectedOutput, $result);
+    }
+
     public function testWithSingleStringParameter(): void
     {
         $input = ['max' => ['greater:min', 'Max must be greater than min']];
@@ -87,40 +104,40 @@ class ConfigTranslateTest extends TestCase
     public function testComplex(): void
     {
         $input = [
-            'symbol' => ['not_null', 'Required', '0001'],
-            'type' => ['not_null', 'Required', '0001'],
+            'symbol' => ['not_null', '0001'],
+            'type' => ['not_null', '0001'],
             'constraints' => [
                 'type=text' => [
-                    '*' => ['expected_properties:[pattern]', 'Redundant', '0002'],
-                    'pattern' => ['valid_regexp', 'Invalid pattern', '1001']
+                    '*' => ['expected_properties:[pattern]', '0002'],
+                    'pattern' => ['valid_regexp', '1001']
                 ],
                 'type=integer' => [
-                    '*' => ['expected_properties:[min,max,step]', 'Redundant', '0002'],
-                    'min' => ['integer', 'Must be integer', '1002'],
+                    '*' => ['expected_properties:[min,max,step]', '0002'],
+                    'min' => ['integer', '1002'],
                     'max' => [
-                        ['integer', 'Must be integer', '1002'],
-                        ['greater:min', 'Max must be greater than min', '1003'],
+                        ['integer', '1002'],
+                        ['greater:min', '1003'],
                     ],
-                    'step' => ['integer', 'Must be integer', '1002']
+                    'step' => ['integer', '1002']
                 ]
             ]
         ];
         $expectedOutput = [
-            'symbol' =>  new Rule(new NotNull(), 'Required', '0001'),
-            'type' => new Rule(new NotNull(), 'Required', '0001'),
+            'symbol' =>  new Rule(new NotNull(), '0001'),
+            'type' => new Rule(new NotNull(), '0001'),
             'constraints' => [
                 new Conditional('type', '=', 'text', [
-                    '*' => new Rule(new ExpectedProperites(['pattern']), 'Redundant', '0002'),
-                    'pattern' => new Rule(new ValidRegexp(), 'Invalid pattern', '1001')
+                    '*' => new Rule(new ExpectedProperites(['pattern']), '0002'),
+                    'pattern' => new Rule(new ValidRegexp(), '1001')
                 ]),
                 new Conditional('type', '=', 'integer', [
-                    '*' => new Rule(new ExpectedProperites(['min', 'max', 'step']), 'Redundant', '0002'),
-                    'min' => new Rule(new Integer(), 'Must be integer', '1002'),
+                    '*' => new Rule(new ExpectedProperites(['min', 'max', 'step']), '0002'),
+                    'min' => new Rule(new Integer(), '1002'),
                     'max' => [
-                        new Rule(new Integer(), 'Must be integer', '1002'),
-                        new Rule(new Greater('min'), 'Max must be greater than min', '1003')
+                        new Rule(new Integer(), '1002'),
+                        new Rule(new Greater('min'), '1003')
                     ],
-                    'step' => new Rule(new Integer(), 'Must be integer', '1002')
+                    'step' => new Rule(new Integer(), '1002')
                 ])
             ]
         ];
@@ -128,5 +145,25 @@ class ConfigTranslateTest extends TestCase
         $translator = new Translator();
         $result = $translator->translate($input);
         $this->assertEquals($expectedOutput, $result);
+    }
+
+    public function explodeData(): array
+    {
+        return [
+            ['name=10', ['name', '=', '10']],
+            ['name>=10', ['name', '>=', '10']],
+            ['name<=10', ['name', '<=', '10']],
+            ['name!=10', ['name', '!=', '10']],
+        ];
+    }
+
+    /**
+     * @dataProvider explodeData
+     */
+    public function testExplode($input, $ouptut): void
+    {
+        $translator = new Translator();
+        $data = $translator->explode($input);
+        $this->assertEquals($ouptut, $data);
     }
 }

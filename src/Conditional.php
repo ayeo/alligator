@@ -4,6 +4,8 @@ namespace Ayeo\Alligator;
 
 class Conditional
 {
+    private $allowedOperators = []; //todo
+
     /** @var string */
     private $dependsOn;
     /** @var string */
@@ -37,8 +39,16 @@ class Conditional
         switch ($this->operator) {
             case '=':
                 return $value == $this->conditionalValue;
+            case '!=':
+                return $value != $this->conditionalValue;
             case '>':
                 return $value > $this->conditionalValue;
+            case '>=':
+                return $value >= $this->conditionalValue;
+            case '<':
+                return $value < $this->conditionalValue;
+            case '<=':
+                return $value <= $this->conditionalValue;
         }
 
         return false;

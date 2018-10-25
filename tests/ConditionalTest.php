@@ -20,14 +20,21 @@ class ConditionalTest extends TestCase
             [20, null, '=', true, 'Test 2'],
 
             [20, null, '>', true, 'Test 3'],
-            [22, null, '>', false, 'Test 3'],
+            [21, null, '>', true, 'Test 3a'],
+            [22, null, '>', false, 'Test 3b'],
+
+            [20, null, '>=', true, 'Test 4'],
+            [21, null, '>=', false, 'Test 4a'],
+            [22, null, '>=', false, 'Test 4b'],
+
+            [21, '5555-5555', '>=', true, 'Test 5'],
         ];
     }
 
     /**
      * @dataProvider dataProvider()
      */
-    public function testEqual($age, $number, $operator, $expectedResult, $message)
+    public function testData($age, $number, $operator, $expectedResult, $message)
     {
         $food = new \stdClass();
         $food->age = $age;

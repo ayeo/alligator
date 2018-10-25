@@ -6,6 +6,9 @@ use Ayeo\Alligator\Constraint;
 
 class Translator
 {
+    /** @var string[] */
+    private $operators = ['>=', '>', '!=', '<=', '<', '='];
+    /** @var string[] */
     private $constraints = [
         'not_null' => Constraint\NotNull::class,
         'integer' => Constraint\Integer::class,
@@ -27,7 +30,17 @@ class Translator
 
     private function isConditional($name): bool
     {
-        return is_string($name) && count(explode('=', $name)) > 1;
+        if (is_string($name) === false) {
+            return false;
+        }
+
+        foreach ($this->operators as $operator) {
+            if (count(explode($operator, $name)) > 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function buildConstraint(string $slug): Constraint\AbstractConstraint
@@ -50,8 +63,8 @@ class Translator
     {
         foreach ($input as $name => $rules) {
             if ($this->isConditional($name)) {
-                $data = explode('=', $name);
-                $result[] = new Conditional($data[0], '=', $data[1], $this->translate($rules));
+                $data = $this->explode($name);
+                $result[] = new Conditional($data[0], $data[1], $data[2], $this->translate($rules));
             } elseif (isset($rules[0]) && $this->isValidSlug($rules[0])) {
                 $rule = $this->buildRule($rules);
                 $result[$name] = $rule;
@@ -69,5 +82,17 @@ class Translator
         $slug = $rules[0];
         $constraint = $this->buildConstraint($slug);
         return new Rule($constraint, $rules[1], $rules[2] ?? '');
+    }
+
+    public function explode($name): array
+    {
+        foreach ($this->operators as $operator) {
+            $tmp = explode($operator, $name);
+            if (count($tmp) === 2) {
+                return [$tmp[0], $operator, $tmp[1]];
+            }
+        }
+
+        throw new \LogicException('Can not explode');
     }
 }
