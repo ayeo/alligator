@@ -51,7 +51,7 @@ class ConfigTranslateTest extends TestCase
         ];
         $expectedOutput = [
             'nested' =>  [
-                new Conditional('role', 'moderator', [
+                new Conditional('role', '=', 'moderator', [
                     'salary' => new Rule(new NotNull(), 'Required'),
                 ])
 
@@ -109,11 +109,11 @@ class ConfigTranslateTest extends TestCase
             'symbol' =>  new Rule(new NotNull(), 'Required', '0001'),
             'type' => new Rule(new NotNull(), 'Required', '0001'),
             'constraints' => [
-                new Conditional('type', 'text', [
+                new Conditional('type', '=', 'text', [
                     '*' => new Rule(new ExpectedProperites(['pattern']), 'Redundant', '0002'),
                     'pattern' => new Rule(new ValidRegexp(), 'Invalid pattern', '1001')
                 ]),
-                new Conditional('type', 'integer', [
+                new Conditional('type', '=', 'integer', [
                     '*' => new Rule(new ExpectedProperites(['min', 'max', 'step']), 'Redundant', '0002'),
                     'min' => new Rule(new Integer(), 'Must be integer', '1002'),
                     'max' => [

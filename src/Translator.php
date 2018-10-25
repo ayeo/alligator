@@ -51,7 +51,7 @@ class Translator
         foreach ($input as $name => $rules) {
             if ($this->isConditional($name)) {
                 $data = explode('=', $name);
-                $result[] = new Conditional($data[0], $data[1], $this->translate($rules));
+                $result[] = new Conditional($data[0], '=', $data[1], $this->translate($rules));
             } elseif (isset($rules[0]) && $this->isValidSlug($rules[0])) {
                 $rule = $this->buildRule($rules);
                 $result[$name] = $rule;

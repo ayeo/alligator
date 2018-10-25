@@ -16,11 +16,13 @@ class Regexp extends AbstractConstraint
         $this->errorMessage = $errorMessage;
     }
 
-    public function run($value): void
+    public function run($value): bool
     {
         $result = preg_match($this->pattern, $value);
         if ($result === false || $result === 0) {
-            $this->addError($this->errorMessage);
+            return false;
         }
+
+        return true;
     }
 }

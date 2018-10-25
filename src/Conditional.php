@@ -10,12 +10,16 @@ class Conditional
     private $conditionalValue;
     /** @var array */
     private $rules;
+    /** @var string */
+    private $operator;
 
-    public function __construct(string $dependsOn, string $conditionalValue, array $rules)
+    public function __construct(string $dependsOn, string $operator, string $conditionalValue, array $rules)
     {
+        //todo: validate operators
         $this->dependsOn = $dependsOn;
         $this->conditionalValue = $conditionalValue;
         $this->rules = $rules;
+        $this->operator = $operator;
     }
 
     public function getFieldName(): string
@@ -23,13 +27,20 @@ class Conditional
         return $this->dependsOn;
     }
 
-    public function getExpectedValue(): string
-    {
-        return $this->conditionalValue;
-    }
-
     public function getRules(): array
     {
         return $this->rules;
+    }
+
+    public function match($value): bool
+    {
+        switch ($this->operator) {
+            case '=':
+                return $value == $this->conditionalValue;
+            case '>':
+                return $value > $this->conditionalValue;
+        }
+
+        return false;
     }
 }

@@ -105,7 +105,7 @@ class NewFormatTest extends TestCase
         $rules = [
             'name' => new Rule(new NotNull(), 'Name must not be null'),
             'nested' => [
-                new Conditional('name', 'special-value', [
+                new Conditional('name', '=', 'special-value', [
                     'min' => new Rule(new OneOf(['the only valid']), 'Invalid value')
                 ])
             ]
@@ -126,7 +126,7 @@ class NewFormatTest extends TestCase
         $rules = [
             'name' => new Rule(new NotNull(), 'Name must not be null'),
             'nested' => [
-                new Conditional('name', 'special-value',
+                new Conditional('name', '=', 'special-value',
                     ['min' => $rule]
                 )
             ]
@@ -152,7 +152,7 @@ class NewFormatTest extends TestCase
 
         $rules = [
             'nested' => [
-                new Conditional('name', 'a',
+                new Conditional('name', '=', 'a',
                     ['name' => new Rule(new OneOf(['b']), 'Invalid value')]
                 )
             ]
@@ -174,7 +174,7 @@ class NewFormatTest extends TestCase
         $rule = new Rule(new OneOf(['b']), 'Invalid value');
         $rules = [
             'nested' => [
-                new Conditional('name', 'a',
+                new Conditional('name', '=', 'a',
                     ['name' => $rule]
                 )
             ]
@@ -195,7 +195,7 @@ class NewFormatTest extends TestCase
     {
         $rules = [
             'description' => [
-                new Conditional('name', 'test', [
+                new Conditional('name', '=', 'test', [
                     '' => new Rule(new NotAllowed(), '1500')
                 ])
         ]];
@@ -218,7 +218,7 @@ class NewFormatTest extends TestCase
     {
         $rules = [
             'description' => [
-                new Conditional('name', 'test', [
+                new Conditional('name', '=', 'test', [
                     '' => new Rule(new NotAllowed(), '1500')
                 ])
             ]];

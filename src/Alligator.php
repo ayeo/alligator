@@ -46,8 +46,7 @@ class Alligator
                     $zbychu = $xRule;
                     $nestedObject = $this->getFieldValue($fieldName, $object);
                     $a = $this->getFieldValue($zbychu->getFieldName(), $object);
-                    $b = $zbychu->getExpectedValue();
-                    if ($a == $b) {
+                    if ($zbychu->match($a)) {
                         foreach ($zbychu->getRules() as $yy => $xxx) {
                             if ($yy === '*') {
                                 foreach (get_object_vars((object)$nestedObject) as $propertyName => $value) {
@@ -70,7 +69,12 @@ class Alligator
                                     $errors
                                 );
                             } else {
-                                $this->processValidation($xxx, $yy, (object)$nestedObject, $errors[$fieldName]);
+                                if (is_numeric($yy)) { //multiple rules (?)
+                                    $this->processValidation($xxx, $fieldName, $object, $errors);
+                                } else {
+                                    $this->processValidation($xxx, $yy, (object)$nestedObject, $errors[$fieldName]);
+                                }
+
                             }
                         }
                     }
@@ -110,8 +114,6 @@ class Alligator
                 } else {
                     $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
                 }
-
-
             }
         }
     }
