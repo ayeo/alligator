@@ -2,31 +2,22 @@
 
 namespace Ayeo\Alligator;
 
-use Ayeo\Alligator\Constraint\ArrayOf;
-use Ayeo\Alligator\Constraint\ExpectedProperites;
-use Ayeo\Alligator\Constraint\Greater;
-use Ayeo\Alligator\Constraint\Integer;
-use Ayeo\Alligator\Constraint\MinItemsNumber;
-use Ayeo\Alligator\Constraint\MinLength;
-use Ayeo\Alligator\Constraint\NotAllowed;
-use Ayeo\Alligator\Constraint\NotNull;
-use Ayeo\Alligator\Constraint\Numeric;
-use Ayeo\Alligator\Constraint\OneOf;
-use Ayeo\Alligator\Constraint\ValidRegexp;
+use Ayeo\Alligator\Constraint;
 
 class Translator
 {
     private $constraints = [
-        'not_null' => NotNull::class,
-        'integer' => Integer::class,
-        'numeric' => Numeric::class,
-        'valid_regexp' => ValidRegexp::class,
-        'expected_properties' => ExpectedProperites::class,
-        'greater' => Greater::class,
-        'not_allowed' => NotAllowed::class,
-        'min_length' => MinLength::class,
-        'one_of' => OneOf::class,
-        'min_items_number' => MinItemsNumber::class
+        'not_null' => Constraint\NotNull::class,
+        'integer' => Constraint\Integer::class,
+        'numeric' => Constraint\Numeric::class,
+        'valid_regexp' => Constraint\ValidRegexp::class,
+        'expected_properties' => Constraint\ExpectedProperites::class,
+        'greater' => Constraint\Greater::class,
+        'not_allowed' => Constraint\NotAllowed::class,
+        'min_length' => Constraint\MinLength::class,
+        'one_of' => Constraint\OneOf::class,
+        'array_of' => Constraint\ArrayOf::class,
+        'min_items_number' => Constraint\MinItemsNumber::class
     ];
 
     private function isValidSlug($slug): bool

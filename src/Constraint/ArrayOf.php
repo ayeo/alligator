@@ -2,11 +2,8 @@
 
 namespace Ayeo\Alligator\Constraint;
 
-class OneOf extends AbstractConstraint
+class ArrayOf extends AbstractConstraint
 {
-
-    private $allowedValues;
-
     public function __construct(array $allowedValues)
     {
         $this->allowedValues = $allowedValues;
@@ -14,7 +11,17 @@ class OneOf extends AbstractConstraint
 
     public function run($value): bool
     {
-        return in_array($value, $this->allowedValue);
+        if (is_array($value) === false) {
+            return false;
+        }
+
+        foreach ($value as $single) {
+            if (in_array($single, $this->allowedValues) === false) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getMetadata(): array
