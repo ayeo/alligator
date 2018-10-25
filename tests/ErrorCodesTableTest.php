@@ -7,7 +7,7 @@ use Ayeo\Alligator\Error;
 use Ayeo\Alligator\ErrorCodesTable;
 use Ayeo\Alligator\Rule;
 use Ayeo\Alligator\Tests\Sample\SampleClass;
-use Ayeo\Alligator\Validator;
+use Ayeo\Alligator\Alligator;
 use PHPUnit\Framework\TestCase;
 
 class ErrorCodesTableTest extends TestCase
@@ -22,8 +22,8 @@ class ErrorCodesTableTest extends TestCase
         $table = new ErrorCodesTable();
         $table->add('1882', 'Name is to short');
 
-        $validator = new Validator();
-        $validator->validate($object, $rules);
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
         $errors = $validator->getErrors($table);
 
         $expected = [

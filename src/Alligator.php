@@ -2,7 +2,7 @@
 
 namespace Ayeo\Alligator;
 
-class Validator
+class Alligator
 {
     private $errors = [];
     private $invalidFields = [];
@@ -15,7 +15,7 @@ class Validator
         }
     }
 
-    public function validate($object, $rules)
+    public function taste($object, $rules): bool
     {
         if (isset($this->translator)) {
             $rules = $this->translator->translate($rules);
@@ -103,12 +103,20 @@ class Validator
 
             if ($result === false) {
                 $this->invalidFields[] = $fieldName;
-                $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
+                if ($validator instanceof MultiErrors) {
+                    foreach ($validator->getIndexes() as $index) {
+                        $errors[$fieldName][$index] = new Error($rule->getCode(), $validator->getMetadata());
+                    }
+                } else {
+                    $errors[$fieldName] = new Error($rule->getCode(), $validator->getMetadata());
+                }
+
+
             }
         }
     }
 
-    private function processObjectValidation($rule, $fieldName, $object, &$errors): void
+    private function processObjectValidation(Rule $rule, $fieldName, $object, array &$errors): void
     {
         $validator = $rule->getConstraint();
         $result = $validator->validate($fieldName);

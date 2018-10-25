@@ -7,7 +7,7 @@ use Ayeo\Alligator\Error;
 use Ayeo\Alligator\Rule;
 use Ayeo\Alligator\Tests\Sample\Range;
 use Ayeo\Alligator\Tests\Sample\SampleClass;
-use Ayeo\Alligator\Validator;
+use Ayeo\Alligator\Alligator;
 use PHPUnit\Framework\TestCase;
 
 class RelatedTest extends TestCase
@@ -22,8 +22,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator();
-        $validator->validate($range, $rules);
+        $validator = new Alligator();
+        $validator->taste($range, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -43,8 +43,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator();
-        $this->assertTrue($validator->validate($range, $rules));
+        $validator = new Alligator();
+        $this->assertTrue($validator->taste($range, $rules));
     }
 
     public function testWithUnsetMax()
@@ -56,8 +56,8 @@ class RelatedTest extends TestCase
             'max' => new Rule(new Greater('min'), 'Max must be greater than min')
         ];
 
-        $validator = new Validator();
-        $this->assertTrue($validator->validate($range, $rules));
+        $validator = new Alligator();
+        $this->assertTrue($validator->taste($range, $rules));
     }
 
     public function testNested()
@@ -81,8 +81,8 @@ class RelatedTest extends TestCase
                 ])
             ]
         ];
-        $validator = new Validator();
-        $this->assertFalse($validator->validate($object, $rules));
+        $validator = new Alligator();
+        $this->assertFalse($validator->taste($object, $rules));
         $errors = $validator->getErrors();
         $this->assertEquals($expected, $errors);
     }

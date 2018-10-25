@@ -10,7 +10,7 @@ use Ayeo\Alligator\Error;
 use Ayeo\Alligator\Rule;
 use Ayeo\Alligator\Tests\Sample\Nested;
 use Ayeo\Alligator\Tests\Sample\SampleClass;
-use Ayeo\Alligator\Validator;
+use Ayeo\Alligator\Alligator;
 use Ayeo\Alligator\Conditional;
 use PHPUnit\Framework\TestCase;
 
@@ -24,8 +24,8 @@ class NewFormatTest extends TestCase
         $object = new SampleClass();
         $object->name = 'Sample name';
 
-        $validator = new Validator();
-        $validator->validate($object, $rules);
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -43,8 +43,8 @@ class NewFormatTest extends TestCase
         $object = new SampleClass();
         $object->name = 'xx';
 
-        $validator = new Validator();
-        $validator->validate($object, $rules);
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -62,8 +62,8 @@ class NewFormatTest extends TestCase
         $nameRule = new Rule(new MinLength(20), 'Name is to short');
         $rules = ['nested' => ['name' => $nameRule]];
 
-        $validator = new Validator();
-        $this->assertFalse($validator->validate($sample, $rules));
+        $validator = new Alligator();
+        $this->assertFalse($validator->taste($sample, $rules));
         $expected = [
             'nested' => [
                 'name' => new Error('Name is to short', ['minLength' => 20])
@@ -83,8 +83,8 @@ class NewFormatTest extends TestCase
         $nameRule = new Rule(new MinLength(20), 'Name is to short');
         $rules = ['nested' => ['nested' => ['name' => $nameRule]]];
 
-        $validator = new Validator();
-        $this->assertFalse($validator->validate($sample, $rules));
+        $validator = new Alligator();
+        $this->assertFalse($validator->taste($sample, $rules));
         $expected = [
             'nested' => [
                 'nested' => [
@@ -111,8 +111,8 @@ class NewFormatTest extends TestCase
             ]
         ];
 
-        $validator = new Validator();
-        $result = $validator->validate($sample, $rules);
+        $validator = new Alligator();
+        $result = $validator->taste($sample, $rules);
         $this->assertTrue($result);
     }
 
@@ -132,8 +132,8 @@ class NewFormatTest extends TestCase
             ]
         ];
 
-        $validator = new Validator();
-        $this->assertFalse($validator->validate($sample, $rules));
+        $validator = new Alligator();
+        $this->assertFalse($validator->taste($sample, $rules));
         $expected = [
             'nested' => [
                 'min' => new Error('Invalid value', ['allowedValues' => ['the only valid']])
@@ -157,8 +157,8 @@ class NewFormatTest extends TestCase
                 )
             ]
         ];
-        $validator = new Validator();
-        $this->assertTrue($validator->validate($sample, $rules));
+        $validator = new Alligator();
+        $this->assertTrue($validator->taste($sample, $rules));
         $expected = [];
         $errors = $validator->getErrors();
         $this->assertEquals($expected, $errors);
@@ -180,8 +180,8 @@ class NewFormatTest extends TestCase
             ]
         ];
 
-        $validator = new Validator();
-        $this->assertFalse($validator->validate($sample, $rules));
+        $validator = new Alligator();
+        $this->assertFalse($validator->taste($sample, $rules));
         $expected = [
             'nested' => [
                 'name' => new Error('Invalid value', ['allowedValues' => ['b']])
@@ -204,8 +204,8 @@ class NewFormatTest extends TestCase
         $object->name = 'test';
         $object->description = 'tralalala';
 
-        $validator = new Validator();
-        $validator->validate($object, $rules);
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
@@ -228,8 +228,8 @@ class NewFormatTest extends TestCase
         $object->description = new \stdClass();
         $object->description->body = 'Tralalalal';
 
-        $validator = new Validator();
-        $validator->validate($object, $rules);
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
         $errors = $validator->getErrors();
 
         $expected = [
