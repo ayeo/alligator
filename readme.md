@@ -8,14 +8,14 @@ Extremely simple yet powerful validation utility. Alligator is intended to fulfi
 
 ## Installation
 
-```
+```bash
 composer requrie ayeo/alligator
 ```
 
 ## Usage
 
 Lets consider simple objects
-```
+```php
 class Person 
 {
     /** @var string */
@@ -33,7 +33,7 @@ class Person
 ```
 
 Rules by default are defined as simple array (but this is not mandatory - see "Custom format" for more details).
-```
+```php
 $rules = [
     'firstname' => [
         ['not_null', 'required'],
