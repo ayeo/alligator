@@ -12,9 +12,10 @@ Extremely simple yet powerful validation utility. Alligator is intended to fulfi
 composer requrie ayeo/alligator
 ```
 
-## Usage
+## Rules
 
-Lets consider simple objects
+Alligator use scenario is all about working with entire resoucr objects. Rules are defined at level of the object also.
+Lets consider simple example.
 ```php
 class Person 
 {
@@ -31,10 +32,9 @@ class Person
     //getters/setters comes here
 }
 ```
-
 Rules by default are defined as simple array (but this is not mandatory - see "Custom format" for more details).
 ```php
-$rules = [
+$recipe = [
     'firstname' => [
         ['not_null', 'required'],
         ['min_length:5, 'too_short'],
@@ -50,9 +50,23 @@ $rules = [
     'age' => 
         ['integer', 'must_be_integer'], //single rule
     'insuranceNumber' =>
-        'age>21' => ['regexp:[0-9]{12}', 'invalid_insurance_number']
+        'age>21' => ['regexp:^[0-4]{4}-[0-4]-{4}$', 'invalid_insurance_number']
 ]
 ```
-
 Above rules expect firstname and lastname to be letters only and long between 5 and 25 chars. Age is optional but
-if set must be integer. Insurance number is required only if age is above 21 and it's defined as an regexp here.
+if set must be integer. Insurance number is required only if age is above 21 and it's defined as an regexp here. 
+
+## Usage
+
+Having rules at place we are ready to try what Alligator can do for us.
+```php
+$food = new Person('Rocky', 'Balboa');
+$food->setAge(37);
+$food->setInsuranceNumber('3423-543'); 
+
+$alligator = new Alligator();
+$result = $alligator->taste($food, $recipe);
+$errors = $alligator->getErrors();
+```
+Errors has same structure as input resource object.  (todo: describe collection checking)
+
