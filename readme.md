@@ -37,14 +37,14 @@ Rules by default are defined as simple array (but this is not mandatory - see "C
 $recipe = [
     'firstname' => [
         ['not_null', 'required'],
-        ['min_length:5, 'too_short'],
-        ['max_length:25, 'too_long'],
+        ['min_length:5', 'too_short'],
+        ['max_length:25', 'too_long'],
         ['letters', 'letters_only']
      ],
     'lastname' => [
         ['not_null', 'required'],
-        ['min_length:5, 'too_short'],
-        ['max_length:25, 'too_long'],
+        ['min_length:5', 'too_short'],
+        ['max_length:25', 'too_long'],
         ['letters', 'letters_only']
     ],
     'age' => 
