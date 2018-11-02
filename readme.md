@@ -1,7 +1,12 @@
-# Alligator [![Build Status](https://travis-ci.org/ayeo/alligator.svg?branch=master)](https://travis-ci.org/ayeo/alligator) [![Coverage](https://codecov.io/gh/ayeo/alligator/branch/master/graph/badge.svg)](https://codecov.io/gh/ayeo/alligator)
+# Alligator 
+
+[![Build Status](https://travis-ci.org/ayeo/alligator.svg?branch=master)](https://travis-ci.org/ayeo/alligator) 
+[![Coverage](https://codecov.io/gh/ayeo/alligator/branch/master/graph/badge.svg)](https://codecov.io/gh/ayeo/alligator)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license.md)
+
 ![Logo](alligator.png) 
 
-DO NOT USE IT YET: it is draft 
+Notice: This project does not reach stable version yet - use when you know what you are doing 
 
 Extremely simple yet powerful validation utility. Alligator is intended to fulfill any kind of resource validation.
  It is happy to traverse trough nested objects. Alligator also works well with protected/private properties.
