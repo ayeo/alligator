@@ -2,9 +2,7 @@
 
 namespace Ayeo\Alligator\Constraint;
 
-use Ayeo\Alligator\CheckNull;
-
-class MinItemsNumber extends AbstractConstraint implements CheckNull
+class MinItemsNumber extends AbstractConstraint
 {
     /** @var int */
     private $min;

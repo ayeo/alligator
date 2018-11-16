@@ -3,6 +3,7 @@
 namespace Ayeo\Alligator\Tests;
 
 use Ayeo\Alligator\Constraint\ArrayOf;
+use Ayeo\Alligator\Constraint\MinItemsNumber;
 use Ayeo\Alligator\Error;
 use Ayeo\Alligator\ErrorCodesTable;
 use Ayeo\Alligator\Rule;
@@ -52,6 +53,26 @@ class CollectionTest extends TestCase
             'values' => [
                 2 => new Error('not_allowed_value', ['allowedValues' => ['one', 'two']], 'Not allowed value')
             ]
+        ];
+        $this->assertEquals($expected, $errors);
+    }
+
+    public function testEmptyArray(): void
+    {
+        $rules = [
+            'values' => new Rule(new MinItemsNumber('1'), 'must_not_be_empty')
+        ];
+
+        $object = new \stdClass();
+        $object->values = [];
+
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
+
+        $errors = $validator->getErrors();
+
+        $expected = [
+            'values' => new Error('must_not_be_empty', ['minItemsNo' => 1])
         ];
         $this->assertEquals($expected, $errors);
     }
