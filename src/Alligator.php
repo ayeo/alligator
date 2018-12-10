@@ -59,15 +59,17 @@ class Alligator
                                 }
                             } elseif ($yy === '') {
                                 if (is_null($nestedObject)) {
-                                    continue;
+                                    $this->processValidation($xxx, $fieldName, $object, $errors);
+                                } else {
+                                    $this->processObjectValidation(
+                                        $xxx,
+                                        $fieldName,
+                                        (object)$nestedObject,
+                                        $errors
+                                    );
                                 }
 
-                                $this->processObjectValidation(
-                                    $xxx,
-                                    $fieldName,
-                                    (object)$nestedObject,
-                                    $errors
-                                );
+
                             } else {
                                 if (is_numeric($yy)) { //multiple rules (?)
                                     $this->processValidation($xxx, $fieldName, $object, $errors);
