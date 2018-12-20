@@ -2,41 +2,23 @@
 
 namespace Ayeo\Alligator\Constraint;
 
-use Ayeo\Alligator\WholeObjectAware;
-
-class Greater extends AbstractConstraint implements WholeObjectAware
+class Greater extends AbstractConstraint
 {
-    /** @var string */
-    private $fieldName;
-    /** @var float */
-    private $min;
+    /** @var int */
+    private $threshold;
 
-    public function __construct(string $fieldName)
+    public function __construct(int $threshold)
     {
-        $this->fieldName = $fieldName;
-    }
-
-    public function validateRelated($value, $object): bool
-    {
-        if (is_null($value)) {
-            return true;
-        }
-        
-        $z = $this->fieldName;
-        $this->min = $object->$z;
-
-        return $value > $this->min;
+        $this->threshold = $threshold;
     }
 
     public function run($value): bool
     {
-        return false;
+        return  $value > $this->threshold;
     }
 
     public function getMetadata(): array
     {
-        return [
-            'min' => $this->min
-        ];
+        return ['threshold' => $this->threshold];
     }
 }

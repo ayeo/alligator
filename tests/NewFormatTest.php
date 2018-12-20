@@ -2,6 +2,7 @@
 
 namespace Ayeo\Alligator\Tests;
 
+use Ayeo\Alligator\Constraint\Greater;
 use Ayeo\Alligator\Constraint\MinLength;
 use Ayeo\Alligator\Constraint\NotAllowed;
 use Ayeo\Alligator\Constraint\NotNull;
@@ -12,6 +13,7 @@ use Ayeo\Alligator\Tests\Sample\Nested;
 use Ayeo\Alligator\Tests\Sample\SampleClass;
 use Ayeo\Alligator\Alligator;
 use Ayeo\Alligator\Conditional;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class NewFormatTest extends TestCase
@@ -211,6 +213,24 @@ class NewFormatTest extends TestCase
         $expected = [
             'description' => new Error('1500', [])
         ];
+        $this->assertEquals($expected, $errors);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testGreaterConstraint(): void //fixme: move to constraint test
+    {
+        $rules = ['size' => [new Rule(new Greater(10), 'too_low')]];
+
+        $object = new \stdClass();
+        $object->size = 5;
+
+        $validator = new Alligator();
+        $validator->taste($object, $rules);
+        $errors = $validator->getErrors();
+
+        $expected = ['size' => new Error('too_low', ['threshold' => 10])];
         $this->assertEquals($expected, $errors);
     }
 
