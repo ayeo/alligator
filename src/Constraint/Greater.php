@@ -7,9 +7,9 @@ class Greater extends AbstractConstraint
     /** @var int */
     private $threshold;
 
-    public function __construct(int $threshold)
+    public function __construct(string $threshold)
     {
-        $this->threshold = $threshold;
+        $this->threshold = (int)$threshold;
     }
 
     public function run($value): bool
