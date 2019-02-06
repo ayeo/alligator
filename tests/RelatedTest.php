@@ -2,7 +2,7 @@
 
 namespace Ayeo\Alligator\Tests;
 
-use Ayeo\Alligator\Constraint\Greater;
+use Ayeo\Alligator\Constraint\GreaterThanField;
 use Ayeo\Alligator\Error;
 use Ayeo\Alligator\Rule;
 use Ayeo\Alligator\Tests\Sample\Range;
@@ -19,7 +19,7 @@ class RelatedTest extends TestCase
         $range->max = 5;
 
         $rules = [
-            'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+            'max' => new Rule(new GreaterThanField('min'), 'Max must be greater than min')
         ];
 
         $validator = new Alligator();
@@ -40,7 +40,7 @@ class RelatedTest extends TestCase
         $range->max = 50;
 
         $rules = [
-            'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+            'max' => new Rule(new GreaterThanField('min'), 'Max must be greater than min')
         ];
 
         $validator = new Alligator();
@@ -53,7 +53,7 @@ class RelatedTest extends TestCase
         $range->min = 10;
 
         $rules = [
-            'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+            'max' => new Rule(new GreaterThanField('min'), 'Max must be greater than min')
         ];
 
         $validator = new Alligator();
@@ -70,7 +70,7 @@ class RelatedTest extends TestCase
 
         $rules = [
             'nested' => [
-                'max' => new Rule(new Greater('min'), 'Max must be greater than min')
+                'max' => new Rule(new GreaterThanField('min'), 'Max must be greater than min')
             ]
         ];
 

@@ -16,6 +16,7 @@ class Translator
         'valid_regexp' => Constraint\ValidRegexp::class,
         'expected_properties' => Constraint\ExpectedProperites::class,
         'greater' => Constraint\Greater::class,
+        'greater_than_field' => Constraint\GreaterThanField::class,
         'not_allowed' => Constraint\NotAllowed::class,
         'min_length' => Constraint\MinLength::class,
         'one_of' => Constraint\OneOf::class,

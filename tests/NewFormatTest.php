@@ -221,7 +221,7 @@ class NewFormatTest extends TestCase
      */
     public function testGreaterConstraint(): void //fixme: move to constraint test
     {
-        $rules = ['size' => [new Rule(new Greater(10), 'too_low')]];
+        $rules = ['size' => [new Rule(new Greater('10'), 'too_low')]];
 
         $object = new \stdClass();
         $object->size = 5;
