@@ -21,6 +21,8 @@ class Translator
         'min_length' => Constraint\MinLength::class,
         'one_of' => Constraint\OneOf::class,
         'array_of' => Constraint\ArrayOf::class,
+        'array_of_type' => Constraint\ArrayOfType::class,
+        'is_array' => Constraint\IsArray::class,
         'min_items_number' => Constraint\MinItemsNumber::class
     ];
 

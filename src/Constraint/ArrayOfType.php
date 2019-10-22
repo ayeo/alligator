@@ -6,17 +6,17 @@ namespace Ayeo\Alligator\Constraint;
 
 use Ayeo\Alligator\MultiErrors;
 
-class ArrayOf extends AbstractConstraint implements MultiErrors
+class ArrayOfType extends AbstractConstraint implements MultiErrors
 {
     /** @var string[] */
     private $indexes = [];
 
-    /** @var string[] */
-    private $allowedValues;
+    /** @var string */
+    private $type;
 
-    public function __construct(array $allowedValues)
+    public function __construct(string $type)
     {
-        $this->allowedValues = $allowedValues;
+        $this->type = $type;
     }
 
     public function run($value): bool
@@ -27,7 +27,7 @@ class ArrayOf extends AbstractConstraint implements MultiErrors
         }
 
         foreach ($value as $key => $single) {
-            if (in_array($single, $this->allowedValues) === false) {
+            if (gettype($single) !== $this->type) {
                 $this->indexes[] = $key;
             }
         }
@@ -37,7 +37,7 @@ class ArrayOf extends AbstractConstraint implements MultiErrors
 
     public function getMetadata(): array
     {
-        return ['allowedValues' => $this->allowedValues];
+        return ['allowedType' => $this->type];
     }
 
     public function getIndexes(): array
