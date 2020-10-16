@@ -23,7 +23,11 @@ class GreaterThanField extends AbstractConstraint implements WholeObjectAware
         }
 
         $z = $this->fieldName;
-        $this->min = $object->$z;
+        if (isset($object->$z)) {
+            $this->min = $object->$z;
+        } else {
+            return true;
+        }
 
         return $value > $this->min;
     }

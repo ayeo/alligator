@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Ayeo\Alligator\Constraint;
 
-class Max extends AbstractConstraint
+class Min extends AbstractConstraint
 {
     /** @var integer */
-    private $max;
+    private $min;
 
-    public function __construct($max)
+    public function __construct($min)
     {
-        $this->max = (int)$max;
+        $this->min = (int)$min;
     }
 
     public function run($value): bool
     {
-        return $value <= $this->max;
+        return $value >= $this->min;
     }
 }
