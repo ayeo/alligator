@@ -18,4 +18,11 @@ class Max extends AbstractConstraint
     {
         return $value <= $this->max;
     }
+
+    public function getMetadata(): array
+    {
+        return [
+            'limit' => $this->max
+        ];
+    }
 }

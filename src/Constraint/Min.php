@@ -18,4 +18,11 @@ class Min extends AbstractConstraint
     {
         return $value >= $this->min;
     }
+
+    public function getMetadata(): array
+    {
+        return [
+            'limit' => $this->min
+        ];
+    }
 }
