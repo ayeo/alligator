@@ -12,6 +12,7 @@ class Translator
     private $operators = ['>=', '>', '!=', '<=', '<', '='];
     /** @var string[] */
     private $constraints = [
+        'boolean' => Constraint\Boolean::class,
         'not_null' => Constraint\NotNull::class,
         'integer' => Constraint\Integer::class,
         'numeric' => Constraint\Numeric::class,
