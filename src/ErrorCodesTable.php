@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Ayeo\Alligator;
 
 class ErrorCodesTable
 {
-    /** @var string[] */
-    private $codes = [];
+    private array $codes = [];
 
     public function add(string $code, string $message): void
     {

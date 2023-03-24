@@ -87,7 +87,10 @@ class Alligator
                         $this->processValidation($xRule, $xFieldName, $nestedObject, $errors);
                     } else {
                         $nestedObject = $this->getFieldValue($fieldName, $object);
-                        $errors[$fieldName] = [];
+                        if (is_array($errors[$fieldName]) === false) {
+                            $errors[$fieldName] = [];
+                        }
+
                         $this->processValidation($xRule, $xFieldName, (object)$nestedObject, $errors[$fieldName]);
                     }
                 }

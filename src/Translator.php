@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Ayeo\Alligator;
 
@@ -10,6 +12,7 @@ class Translator
     private $operators = ['>=', '>', '!=', '<=', '<', '='];
     /** @var string[] */
     private $constraints = [
+        'boolean' => Constraint\Boolean::class,
         'not_null' => Constraint\NotNull::class,
         'integer' => Constraint\Integer::class,
         'numeric' => Constraint\Numeric::class,
@@ -23,7 +26,10 @@ class Translator
         'array_of' => Constraint\ArrayOf::class,
         'array_of_type' => Constraint\ArrayOfType::class,
         'is_array' => Constraint\IsArray::class,
-        'min_items_number' => Constraint\MinItemsNumber::class
+        'min_items_number' => Constraint\MinItemsNumber::class,
+        'max' => Constraint\Max::class,
+        'min' => Constraint\Min::class,
+        'min_items_number' => Constraint\MinItemsNumber::class,
     ];
 
     private function isValidSlug($slug): bool
