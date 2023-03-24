@@ -29,6 +29,7 @@ class Translator
         'min_items_number' => Constraint\MinItemsNumber::class,
         'max' => Constraint\Max::class,
         'min' => Constraint\Min::class,
+        'min_items_number' => Constraint\MinItemsNumber::class,
     ];
 
     private function isValidSlug($slug): bool
