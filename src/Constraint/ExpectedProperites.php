@@ -13,7 +13,7 @@ class ExpectedProperites extends AbstractConstraint
 
     public function run($value): bool
     {
-        return in_array($value, $this->allowedProperites);
+        return in_array($value, $this->allowedProperites, true);
     }
 
     public function getMetadata(): array
